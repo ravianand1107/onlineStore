@@ -3,7 +3,7 @@
     Created on : 31 Mar, 2020, 12:20:39 PM
     Author     : ravi
 --%>
-<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList, com.beans.Cart" %>
+<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList, com.beans.Cart"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,47 +30,19 @@
             <!-- Cart section -->
             <section class="cart-section spad">
             <%
-                ArrayList<Product> productList = (ArrayList) session.getAttribute("productList");
                 ProductDao pd = new ProductDao();
                 String product_id = request.getParameter("product_id");
                 Product product = pd.getById(Integer.parseInt(product_id));
-
-                Product selectedProduct = null;
-                for (Product p : productList) {
-                    if (p.getId() == Integer.parseInt(product_id)) {
-                        selectedProduct = p;
-                    }
-                }
                 int quantity = request.getParameter("qty") != null ? Integer.parseInt(request.getParameter("qty")) : -1;
                 Cart mycart = new Cart();
 
-                if (quantity != 0 && selectedProduct != null) {
-                    mycart.setProduct(selectedProduct);
+                if (quantity != 0 && product != null) {
+                    mycart.setProduct(product);
                     mycart.setQuantity(quantity);
                 }
+                
+                
 
-                ArrayList<Cart> cart;
-                if (session.getAttribute("cart") == null) {
-                    cart = new ArrayList<Cart>();
-                } else {
-                    cart = (ArrayList) session.getAttribute("cart");
-                }
-
-                boolean exist = false;
-                for (Cart cc : cart) {
-                    if (selectedProduct != null) {
-                        if (cc.getProduct().getId() == selectedProduct.getId()) {
-                            exist = true;
-                            cc.setQuantity(cc.getQuantity() + quantity);
-                        }
-                    }
-                }
-
-                if (!exist && selectedProduct != null) {
-                    cart.add(mycart);
-                }
-
-                session.setAttribute("cart", cart);
             %>
             <div class="container">
                 <div class="row">
@@ -87,17 +59,13 @@
                                             <th class="total-th">Price</th>
                                         </tr>
                                     </thead>
-                                    <% int i = 0;
-                                        for (Cart c : cart) {
-                                            Product pp = c.getProduct();
-                                    %>
                                     <tbody>
                                         <tr>
                                             <td class="product-col">
-                                                <img src="<%=pp.getImage()%>" alt="">
+                                                <img src="<%=product.getImage()%>" alt="">
                                                 <div class="pc-title">
-                                                    <h4><%=pp.getName()%></h4>
-                                                    <p>₹ <%=pp.getPrice()%></p>
+                                                    <h4><%=product.getName()%></h4>
+                                                    <p>₹ <%=product.getPrice()%></p>
                                                 </div>
                                             </td>
                                             <td class="quy-col">
@@ -107,14 +75,13 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="size-col"><h4><%=pp.getSize()%></h4></td>
-                                            <td class="total-col"><h4>$45.90</h4></td>
+                                            <td class="size-col"><h4><%=product.getSize()%></h4></td>
+                                            <td class="total-col"><h4>₹ <%= product.getPrice() * mycart.getQuantity()%></h4></td>
                                         </tr>                                    </tbody>
                                 </table>
-                                            <%}%>
                             </div>
                             <div class="total-cost">
-                                <h6>Total <span>$99.90</span></h6>
+                                <h6>Total <span>$99</span></h6>
                             </div>
                         </div>
                     </div>
