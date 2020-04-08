@@ -6,8 +6,11 @@
             <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/products.jsp</file>
             <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/header.jsp</file>
             <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/admin/addProduct.jsp</file>
+            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/beans/Product.java</file>
+            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/beans/Cart.java</file>
             <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/cart.jsp</file>
             <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/productDetails.jsp</file>
+            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/billingAddress.jsp</file>
         </group>
     </open-files>
 </project-private>
