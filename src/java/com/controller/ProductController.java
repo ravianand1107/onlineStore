@@ -21,6 +21,18 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html");
+
+        String op = request.getParameter("op");
+        System.out.println("hello");
+        if (op != null && op.equalsIgnoreCase("delete")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            ProductDao pd = new ProductDao();
+            if (pd.removeById(id)){
+                response.sendRedirect("admin/allProducts.jsp");
+            }
+        }
 
     }
 
@@ -33,19 +45,18 @@ public class ProductController extends HttpServlet {
         String op = request.getParameter("op");
         if (op != null && op.equalsIgnoreCase("add")) {
             HttpSession session = request.getSession();
-            Product product = (Product)session.getAttribute("product");
-            WearType weartype = (WearType)session.getAttribute("weartype");
-            Category category = (Category)session.getAttribute("category");
+            Product product = (Product) session.getAttribute("product");
+            WearType weartype = (WearType) session.getAttribute("weartype");
+            Category category = (Category) session.getAttribute("category");
             ProductDao pd = new ProductDao();
             System.out.println("Beans received product " + product);
-            System.out.println("wear name="+weartype.getId());
-           System.out.println("cat name="+category.getId());
-           
-            
+            System.out.println("wear name=" + weartype.getId());
+            System.out.println("cat name=" + category.getId());
+
             String imagePath = "";
             imagePath = FileUploader.getUploadedPath(getServletContext(), "media/product", request);
             product.setImage(imagePath);
-            if(pd.addProduct(product, weartype.getId(), category.getId())){
+            if (pd.addProduct(product, weartype.getId(), category.getId())) {
                 out.println("Product Saved");
                 session.removeAttribute("product");
                 session.removeAttribute("weartype");

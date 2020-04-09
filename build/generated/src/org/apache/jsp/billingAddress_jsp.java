@@ -81,7 +81,7 @@ public final class billingAddress_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\t\t\t<h4>CAtegory PAge</h4>\r\n");
       out.write("\t\t\t<div class=\"site-pagination\">\r\n");
       out.write("\t\t\t\t<a href=\"home.jsp\">Home</a> /\r\n");
-      out.write("\t\t\t\t<a href=\"products.jsp\">Shop</a> /\r\n");
+      out.write("\t\t\t\t<a href=\"#\">Your Cart</a> /\r\n");
       out.write("\t\t\t</div>\r\n");
       out.write("\t\t</div>\r\n");
       out.write("\t</div>\r\n");

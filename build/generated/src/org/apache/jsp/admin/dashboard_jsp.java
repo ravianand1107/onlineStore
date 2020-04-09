@@ -53,7 +53,7 @@ public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <meta name=\"keywords\" content=\"au theme template\">\n");
       out.write("\n");
       out.write("    <!-- Title Page-->\n");
-      out.write("    <title>Dashboard 2</title>\n");
+      out.write("    <title>Admin's Dashboard</title>\n");
       out.write("\n");
       out.write("    ");
       org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "base.jsp", out, false);
@@ -505,11 +505,11 @@ public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                </div>\n");
       out.write("            </section>\n");
       out.write("\n");
-      out.write("            <section>\n");
+      out.write("            <!-- Footer--!>\n");
       out.write("            ");
       org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "footer.jsp", out, false);
       out.write("\n");
-      out.write("            </section>\n");
+      out.write("            <!-- End Footer --!>\n");
       out.write("            <!-- END PAGE CONTAINER-->\n");
       out.write("        </div>\n");
       out.write("\n");

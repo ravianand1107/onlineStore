@@ -2,11 +2,7 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap2">
-                            <div class="logo d-block d-lg-none">
-                                <a href="#">
-                                    <img src="images/icon/logo-white.png" alt="CoolAdmin" />
-                                </a>
-                            </div>
+                           
                             <div class="header-button2">
                                 <div class="header-button-item js-item-menu">
                                     <i class="zmdi zmdi-search"></i>

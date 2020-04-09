@@ -3,8 +3,11 @@
     Created on : 31 Mar, 2020, 12:20:39 PM
     Author     : ravi
 --%>
-<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList" %>
+<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList, com.beans.Cart" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:setProperty name="cart" property="*"></jsp:setProperty>
+
+
 <!DOCTYPE html>
 <html>
     <head>

@@ -155,10 +155,12 @@ public final class allProducts_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                                \n");
       out.write("                                            \n");
       out.write("                                            </p>\n");
-      out.write("                                            <button><a href=\"editProduct.jsp?id=");
-      out.print(product.getId());
-      out.write("\"><i class=\"fas fa-pencil btn btn-primary\" aria-hidden=\"true\"></i></a></button> \n");
-      out.write("                                            <button><a href=\"#\"> <i class=\"fas fa-trash btn btn-danger\" aria-hidden=\"true\"></i> </a></button>\n");
+      out.write("                                            <button><a href=\"updateProduct.jsp?id=");
+      out.print(product1.getId());
+      out.write("\"><i class=\"fas fa-pencil btn btn-primary\" aria-hidden=\"true\">Update</i></a></button> \n");
+      out.write("                                            <button><a href=\"../ProductController?id=");
+      out.print(product1.getId());
+      out.write("&op=delete\"> <i class=\"fas fa-trash btn btn-danger\" aria-hidden=\"true\">Delete</i> </a></button>\n");
       out.write("                                        </div>\n");
       out.write("                                    </div>\n");
       out.write("                                </div>\n");

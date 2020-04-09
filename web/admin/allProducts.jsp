@@ -58,8 +58,8 @@
                                                 
                                             
                                             </p>
-                                            <button><a href="editProduct.jsp?id=<%=product1.getId()%>"><i class="fas fa-pencil btn btn-primary" aria-hidden="true"></i></a></button> 
-                                            <button><a href="#"> <i class="fas fa-trash btn btn-danger" aria-hidden="true"></i> </a></button>
+                                            <button><a href="updateProduct.jsp?id=<%=product1.getId()%>"><i class="fas fa-pencil btn btn-primary" aria-hidden="true">Update</i></a></button> 
+                                            <button><a href="../ProductController?id=<%=product1.getId()%>&op=delete"> <i class="fas fa-trash btn btn-danger" aria-hidden="true">Delete</i> </a></button>
                                         </div>
                                     </div>
                                 </div>

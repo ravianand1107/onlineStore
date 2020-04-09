@@ -48,7 +48,7 @@
                                     <form class="form">
                                         <table class="table">
                                             <tr>
-                                                <th colspan="2"><center><h2>Add Product here </h2></center></th>
+                                                <th colspan="2"><center><h2>**Add Product Here** </h2></center></th>
                                             </tr>
                                             <tr>
                                                 <th>Enter Product Name </th>

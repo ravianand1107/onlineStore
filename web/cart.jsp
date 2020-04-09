@@ -75,7 +75,7 @@
             cart.add(mycart);
         
         session.setAttribute("cart", cart);
-
+        
             %>
             <div class="container">
                 <div class="row">
@@ -92,9 +92,10 @@
                                             <th class="total-th">Price</th>
                                         </tr>
                                     </thead>
-                                    <% int i = 0;
+                                    <% int sum = 0;
                             for (Cart c : cart) {
                                 Product p = c.getProduct();
+                                
                                 
                         %>
                                     <tbody>
@@ -115,13 +116,14 @@
                                             </td>
                                             <td class="size-col"><h4><%=p.getSize()%></h4></td>
                                             <td class="total-col"><h4>₹ <%= p.getPrice() * c.getQuantity()%></h4></td>
+                                            <%sum= sum+(p.getPrice() * c.getQuantity());%>
                                         </tr>                                    
                                     </tbody>
                                     <%}%>
                                 </table>
                             </div>
                             <div class="total-cost">
-                                <h6>Total <span>₹ 999</span></h6>
+                                <h6>Total <span>₹ <%=sum%></span></h6>
                             </div>
                             
                         </div>
@@ -131,7 +133,7 @@
                             <input type="text" placeholder="Enter promo code">
                             <button>Submit</button>
                         </form>
-                        <a href="" class="site-btn">Proceed to checkout</a>
+                        <a href="billingAddress.jsp" class="site-btn">Proceed to checkout</a>
                         <a href="products.jsp" class="site-btn sb-dark">Continue shopping</a>
                     </div>
                 </div>

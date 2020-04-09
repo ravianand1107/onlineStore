@@ -10,6 +10,83 @@ import java.util.ArrayList;
 
 public class WeartypeDao {
     
+    public boolean add(String weartype) {
+        boolean status = false;
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "Insert into weartype(name) values (?)";
+                PreparedStatement smt = con.prepareStatement(sql);
+                smt.setString(1, weartype);
+                
+                int n = smt.executeUpdate();
+                if (n > 0) {
+                    status = true;
+                    System.out.println("Record Inserted!!");
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error " + e.getMessage());
+        }
+        return status;
+    }
+    
+    public boolean removeById(int id) {
+        boolean status = false;
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "delete from weartype where id=?";
+                PreparedStatement smt = con.prepareStatement(sql);
+                smt.setInt(1, id);
+
+                int n = smt.executeUpdate();
+                if (n > 0) {
+                    status = true;
+                    System.out.println("Record removed!!");
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error:" + e.getMessage());
+        }
+        return status;
+    }
+    
+    public WearType getById(int id) {
+        WearType weartype = null;
+
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "select * from weartype where id=?";
+                PreparedStatement smt = con.prepareStatement(sql);
+                smt.setInt(1, id);
+                ResultSet rs = smt.executeQuery();
+                if (rs.next()) {
+                    weartype = new WearType();
+                    weartype.setId(rs.getInt("id"));
+                    weartype.setName(rs.getString("name"));
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return weartype;
+    }
+
+    
     public ArrayList<WearType> getAllWeartype() {
         ArrayList<WearType> weartypeList = new ArrayList();
         try {
@@ -60,6 +137,37 @@ public class WeartypeDao {
         }
         return weartype;
     }
+        
+    
+    public boolean update(WearType weartype) {
+        boolean status = false;
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "update weartype set name=? where id=?";
+                PreparedStatement smt = con.prepareStatement(sql);
+                smt.setString(1, weartype.getName());
+                smt.setInt(2, weartype.getId());
+                
+                int n = smt.executeUpdate();
+               // System.out.println("n:"+n);
+                if (n > 0) {
+                    //System.out.println("Customer:"+customer);
+                    status = true;
+                    System.out.println("Record Updated!!!");
+                }
+                cp.putConnection(con);
+                smt.close();
+
+            }
+        } catch (Exception e) {
+            System.out.println("Error " + e.getMessage());
+        }
+        return status;
+    }
+    
     
    /* public static void main(String[] args) {
         WeartypeDao wd = new WeartypeDao();

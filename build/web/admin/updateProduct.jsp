@@ -13,7 +13,7 @@
         <meta name="keywords" content="au theme template">
 
         <!-- Title Page-->
-        <title>Edit Product's Details</title>
+        <title>Update Product's Details</title>
 
         <jsp:include page="base.jsp"></jsp:include>
 
@@ -23,8 +23,8 @@
         <jsp:useBean class="com.beans.Product" id="product1" scope="session"></jsp:useBean>
         <jsp:useBean class="com.beans.WearType" id="weartype" scope="session"></jsp:useBean>
         <jsp:useBean class="com.beans.Category" id="category" scope="session"></jsp:useBean>
-        
-       
+
+
             <div class="page-wrapper">
                 <!-- MENU SIDEBAR-->
             <jsp:include page="sidebar.jsp"></jsp:include>
@@ -46,18 +46,18 @@
                             <%
                                 System.out.println("Akshay");
                                 int id = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id")) : 0;
-                               // product1 = (Product) session.getAttribute("product");
+                                // product1 = (Product) session.getAttribute("product");
                                 System.out.println("ravi");
                                 ProductDao pd = new ProductDao();
                                 Product product = pd.getById(id);
                                 session.setAttribute("product1", product);
-                                product1= (Product) session.getAttribute("product1");
-                                System.out.println("pid:"+product1.getId());
-                                System.out.println("pname:"+product1.getName());
-                                 
-            WeartypeDao wd = new WeartypeDao();
-            WearType weartype1 = wd.getWeartypeByProductId(id);
-            session.setAttribute("weartype", weartype1);
+                                product1 = (Product) session.getAttribute("product1");
+                                System.out.println("pid:" + product1.getId());
+                                System.out.println("pname:" + product1.getName());
+
+                                WeartypeDao wd = new WeartypeDao();
+                                WearType weartype1 = wd.getWeartypeByProductId(id);
+                                session.setAttribute("weartype", weartype1);
                             %>
 
                             <div class="col col-md-12">
@@ -65,7 +65,7 @@
                                 <form class="form">
                                     <table class="table">
                                         <tr>
-                                            <th colspan="2"><center><h2>Edit Product's Details</h2></center></th>
+                                            <th colspan="2"><center><h2>**Update Product's Details**</h2></center></th>
                                         </tr>
                                         <tr>
                                             <th>Enter Product Name </th>
@@ -103,7 +103,7 @@
                                                     ArrayList<WearType> weartypes = wd.getAllWeartype();
                                                     for (WearType wear : weartypes) {
                                                         System.out.println("wid:" + wear.getId());
-                                                        
+
                                                 %> 
                                                 <input type="text" value="${weartype.name}">
                                                 <input type="radio" name="wear" value="<%=wear.getId()%>" ${weartype.name.contains ("<%=wear.getName()%>") ? "checked":""} /><%=wear.getName()%> <br/> 
@@ -150,7 +150,7 @@
                                     </table>
                                 </form>
                                 <%
-                                    session.setAttribute("product1", product1);
+                                        session.setAttribute("product1", product1);
                                     }
                                 %>
                             </div>
