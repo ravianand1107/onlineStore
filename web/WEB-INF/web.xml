@@ -12,6 +12,14 @@
         <servlet-name>CategoryController</servlet-name>
         <servlet-class>com.controller.CategoryController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerController</servlet-name>
+        <servlet-class>com.controller.CustomerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddressController</servlet-name>
+        <servlet-class>com.controller.AddressController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductController</servlet-name>
         <url-pattern>/ProductController</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>CategoryController</servlet-name>
         <url-pattern>/CategoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerController</servlet-name>
+        <url-pattern>/CustomerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddressController</servlet-name>
+        <url-pattern>/AddressController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

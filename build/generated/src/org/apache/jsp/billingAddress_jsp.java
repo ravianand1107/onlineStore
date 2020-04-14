@@ -7,6 +7,7 @@ import com.beans.Product;
 import com.daos.ProductDao;
 import java.sql.*;
 import java.util.ArrayList;
+import com.beans.Cart;
 
 public final class billingAddress_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -48,6 +49,9 @@ public final class billingAddress_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
@@ -62,6 +66,14 @@ public final class billingAddress_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\r\n");
       out.write("        </head>\r\n");
       out.write("        <body>\r\n");
+      out.write("            \r\n");
+      out.write("            ");
+ArrayList<Cart> cart =(ArrayList<Cart>)session.getAttribute("cart");
+            for(Cart cc: cart){
+                System.out.println("Cart:"+cc.getProduct());
+            }
+            
+      out.write("\r\n");
       out.write("            <!-- Page Preloder -->\r\n");
       out.write("            <div id=\"preloder\">\r\n");
       out.write("                <div class=\"loader\"></div>\r\n");
@@ -152,8 +164,8 @@ public final class billingAddress_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\t\t\t\t\t\t</div>\r\n");
       out.write("\t\t\t\t\t\t<div class=\"cf-title\">Payment</div>\r\n");
       out.write("\t\t\t\t\t\t<ul class=\"payment-list\">\r\n");
-      out.write("\t\t\t\t\t\t\t<li>Paypal<a href=\"#\"><img src=\"img/paypal.png\" alt=\"\"></a></li>\r\n");
-      out.write("\t\t\t\t\t\t\t<li>Credit / Debit card<a href=\"#\"><img src=\"img/mastercart.png\" alt=\"\"></a></li>\r\n");
+      out.write("\t\t\t\t\t\t\t<li>Paypal<a href=\"#\"><img src=\"assets/img/paypal.png\" alt=\"\"></a></li>\r\n");
+      out.write("\t\t\t\t\t\t\t<li>Credit / Debit card<a href=\"#\"><img src=\"assets/img/mastercart.png\" alt=\"\"></a></li>\r\n");
       out.write("\t\t\t\t\t\t\t<li>Pay when you get the package</li>\r\n");
       out.write("\t\t\t\t\t\t</ul>\r\n");
       out.write("\t\t\t\t\t\t<button class=\"site-btn submit-order-btn\">Place Order</button>\r\n");
@@ -163,21 +175,42 @@ public final class billingAddress_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("\t\t\t\t\t<div class=\"checkout-cart\">\r\n");
       out.write("\t\t\t\t\t\t<h3>Your Cart</h3>\r\n");
       out.write("\t\t\t\t\t\t<ul class=\"product-list\">\r\n");
+      out.write("                                                    ");
+
+                                                        int sum =0;
+                                                        for (Cart cc: cart){
+                                                        Product p = cc.getProduct();
+                                                    
+      out.write("\r\n");
       out.write("\t\t\t\t\t\t\t<li>\r\n");
-      out.write("\t\t\t\t\t\t\t\t<div class=\"pl-thumb\"><img src=\"img/cart/1.jpg\" alt=\"\"></div>\r\n");
-      out.write("\t\t\t\t\t\t\t\t<h6>Animal Print Dress</h6>\r\n");
-      out.write("\t\t\t\t\t\t\t\t<p>$45.90</p>\r\n");
+      out.write("                                                            <div class=\"pl-thumb\"><img src=\"");
+      out.print(p.getImage());
+      out.write("\" alt=\"\" width=\"50px\" height=\"100px\"></div>\r\n");
+      out.write("\t\t\t\t\t\t\t\t<h6>");
+      out.print(p.getName());
+      out.write("</h6>\r\n");
+      out.write("\t\t\t\t\t\t\t\t<p>₹ ");
+      out.print(p.getPrice());
+      out.write("</p>\r\n");
+      out.write("                                                                <p>Qty: ");
+      out.print(cc.getQuantity());
+      out.write("</p>\r\n");
+      out.write("                                                                ");
+sum= sum+(p.getPrice() * cc.getQuantity());
+      out.write("\r\n");
       out.write("\t\t\t\t\t\t\t</li>\r\n");
-      out.write("\t\t\t\t\t\t\t<li>\r\n");
-      out.write("\t\t\t\t\t\t\t\t<div class=\"pl-thumb\"><img src=\"img/cart/2.jpg\" alt=\"\"></div>\r\n");
-      out.write("\t\t\t\t\t\t\t\t<h6>Animal Print Dress</h6>\r\n");
-      out.write("\t\t\t\t\t\t\t\t<p>$45.90</p>\r\n");
-      out.write("\t\t\t\t\t\t\t</li>\r\n");
+      out.write("                                                        ");
+}
+      out.write("\r\n");
       out.write("\t\t\t\t\t\t</ul>\r\n");
       out.write("\t\t\t\t\t\t<ul class=\"price-list\">\r\n");
-      out.write("\t\t\t\t\t\t\t<li>Total<span>$99.90</span></li>\r\n");
+      out.write("\t\t\t\t\t\t\t<li>Total<span>₹ ");
+      out.print(sum);
+      out.write("</span></li>\r\n");
       out.write("\t\t\t\t\t\t\t<li>Shipping<span>free</span></li>\r\n");
-      out.write("\t\t\t\t\t\t\t<li class=\"total\">Total<span>$99.90</span></li>\r\n");
+      out.write("\t\t\t\t\t\t\t<li class=\"total\">Total<span>₹ ");
+      out.print(sum);
+      out.write("</span></li>\r\n");
       out.write("\t\t\t\t\t\t</ul>\r\n");
       out.write("\t\t\t\t\t</div>\r\n");
       out.write("\t\t\t\t</div>\r\n");

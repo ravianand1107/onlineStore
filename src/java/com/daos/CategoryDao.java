@@ -170,4 +170,30 @@ public class CategoryDao {
         return status;
     }
     
+    public Category getCategoryByProductId(int p_id) {
+        Category category = null;
+
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = " select * from category where id in(select cat_id from product_details where product_id=?)";
+                PreparedStatement smt = con.prepareStatement(sql);
+                smt.setInt(1, p_id);
+                ResultSet rs = smt.executeQuery();
+                if (rs.next()) {
+                    category = new Category();
+                    category.setId(rs.getInt("id"));
+                    category.setName(rs.getString("name"));
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return category;
+    }
+    
 }

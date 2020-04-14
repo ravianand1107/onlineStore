@@ -100,13 +100,13 @@
                                             <td>
                                                 <%
                                                     wd = new WeartypeDao();
+                                                    weartype = wd.getWeartypeByProductId(product1.getId());
                                                     ArrayList<WearType> weartypes = wd.getAllWeartype();
+                                                    
                                                     for (WearType wear : weartypes) {
-                                                        System.out.println("wid:" + wear.getId());
-
-                                                %> 
-                                                <input type="text" value="${weartype.name}">
-                                                <input type="radio" name="wear" value="<%=wear.getId()%>" ${weartype.name.contains ("<%=wear.getName()%>") ? "checked":""} /><%=wear.getName()%> <br/> 
+                                                %>
+                                                <input type="radio" name="wear" value="<%=wear.getId()%>" <%if(wear.getName().equals(weartype.getName())){
+                                                    out.println("checked");}%>/><%=wear.getName()%><br>
                                                 <%}%>
                                             </td>
                                         </tr>
@@ -115,14 +115,17 @@
                                             <td>
                                                 <%
                                                     CategoryDao cd = new CategoryDao();
+                                                    category = cd.getCategoryByProductId(product1.getId());
                                                     ArrayList<Category> categories = cd.getAllCategory();
-                                                    for (Category cat : categories) {%> 
-                                                <input type="radio" name="cate" value="<%=cat.getId()%>" /> <%=cat.getName()%><br/> 
+                                                   
+                                                    for (Category cat : categories) { %>
+                                                        <input type="radio" name="cate" value="<%=cat.getId()%>" <%if(cat.getName().equals(category.getName())){
+                                                            out.println("checked");}%> /> <%=cat.getName()%><br/> 
                                                 <%}%>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th colspan="2"><center><button name="submit" type="submit" class="btn btn-primary">Save and Next </button></center></th>
+                                            <td colspan="2"><input type="submit" name="submit" value="Save and Next" class="btn-primary form-control"></td>
                                         </tr>
                                     </table>
                                 </form>
@@ -134,24 +137,22 @@
                                         weartype.setId(Integer.parseInt(request.getParameter("wear")));
                                         category.setId(Integer.parseInt(request.getParameter("cate")));
                                 %>
-                                <jsp:setProperty name="product1" property="*"></jsp:setProperty>
+                                <jsp:setProperty name="product" property="*"></jsp:setProperty>
 
-                                    <form action="../ProductController?op=add" method="post" enctype="multipart/form-data" class="form">
+                                    <form action="../ProductController?op=update" method="post" enctype="multipart/form-data" class="form">
                                         <table class="table">
                                             <tr>
                                                 <th>Select Product Image</th>
-
                                                 <td><img src="../${product1.image}" class="img img-thumbnail" width="20%" height="20%" id="preview"/> <br/>
                                                 <input type="file" name="image" class="form-control btn btn-primary"/></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="2" ><center><button type="submit" class="btn btn-primary">Click here to insert image</button></center></th>
-                                        </tr>
-                                    </table>
-                                </form>
-                                <%
-                                        session.setAttribute("product1", product1);
-                                    }
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2" ><center><button type="submit" class="btn btn-primary">Click here to insert image</button></center></th>
+                                            </tr>
+                                        </table>
+                                    </form>
+
+                                <% }
                                 %>
                             </div>
                         </div>

@@ -133,7 +133,7 @@
                             <input type="text" placeholder="Enter promo code">
                             <button>Submit</button>
                         </form>
-                        <a href="billingAddress.jsp" class="site-btn">Proceed to checkout</a>
+                        <a href="billingAddress.jsp" class="site-btn">Select Billing Address</a>
                         <a href="products.jsp" class="site-btn sb-dark">Continue shopping</a>
                     </div>
                 </div>

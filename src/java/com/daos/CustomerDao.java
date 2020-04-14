@@ -16,18 +16,16 @@ public class CustomerDao {
             cp.initialize();
             Connection con = cp.getConnection();
             if (con != null) {
-                String sql = "Insert into customer(name,gender,email,mobile,password,address,city,state,userid) values (?,?,?,?,?,?,?,?,?)";
+                String sql = "Insert into customer(name,gender,email,mobile,userid,password,role) values (?,?,?,?,?,?,?)";
                 PreparedStatement smt = con.prepareStatement(sql);
                 smt.setString(1, customer.getName());
                 smt.setString(2, customer.getGender());
                 smt.setString(3, customer.getEmail());
-                smt.setInt(4, customer.getMobile());
-                smt.setString(5, customer.getPassword());
-                smt.setString(6, customer.getAddress());
-                smt.setString(7, customer.getCity());
-                smt.setString(8, customer.getState());
-                smt.setString(9, customer.getUserid());
-                
+                smt.setString(4, customer.getMobile());
+                smt.setString(5, customer.getUserid());
+                smt.setString(6, customer.getPassword());
+                smt.setString(7, customer.getRole());
+
                 int n = smt.executeUpdate();
                 if (n > 0) {
                     status = true;
@@ -109,12 +107,10 @@ public class CustomerDao {
                     customer.setName(rs.getString("name"));
                     customer.setGender(rs.getString("gender"));
                     customer.setEmail(rs.getString("email"));
-                    customer.setMobile(rs.getInt("mobile"));
-                    customer.setPassword(rs.getString("password"));
-                    customer.setAddress(rs.getString("address"));
-                    customer.setCity(rs.getString("city"));
-                    customer.setState(rs.getString("state"));
+                    customer.setMobile(rs.getString("mobile"));
                     customer.setUserid(rs.getString("userid"));
+                    customer.setPassword(rs.getString("password"));
+
                 }
                 cp.putConnection(con);
                 smt.close();
@@ -142,12 +138,10 @@ public class CustomerDao {
                     customer.setName(rs.getString("name"));
                     customer.setGender(rs.getString("gender"));
                     customer.setEmail(rs.getString("email"));
-                    customer.setMobile(rs.getInt("mobile"));
-                    customer.setPassword(rs.getString("password"));
-                    customer.setAddress(rs.getString("address"));
-                    customer.setCity(rs.getString("city"));
-                    customer.setState(rs.getString("state"));
+                    customer.setMobile(rs.getString("mobile"));
                     customer.setUserid(rs.getString("userid"));
+                    customer.setPassword(rs.getString("password"));
+
                     customers.add(customer);
                 }
                 cp.putConnection(con);
@@ -179,12 +173,9 @@ public class CustomerDao {
                     customer.setName(rs.getString("name"));
                     customer.setGender(rs.getString("gender"));
                     customer.setEmail(rs.getString("email"));
-                    customer.setMobile(rs.getInt("mobile"));
-                    customer.setPassword(rs.getString("password"));
-                    customer.setAddress(rs.getString("address"));
-                    customer.setCity(rs.getString("city"));
-                    customer.setState(rs.getString("state"));
+                    customer.setMobile(rs.getString("mobile"));
                     customer.setUserid(rs.getString("userid"));
+                    customer.setPassword(rs.getString("password"));
                     
                     customers.add(customer);
                 }
@@ -196,7 +187,7 @@ public class CustomerDao {
         }
         return customers;
     }
-    
+
     public boolean isUserIdExist(String userid) {
         boolean status = false;
 
@@ -221,7 +212,7 @@ public class CustomerDao {
         }
         return status;
     }
-    
+
     public boolean isEmailExist(String email) {
         boolean status = false;
 
@@ -246,8 +237,8 @@ public class CustomerDao {
         }
         return status;
     }
-    
-    public boolean isMobileExist(int mobile) {
+
+    public boolean isMobileExist(String mobile) {
         boolean status = false;
 
         try {
@@ -257,7 +248,7 @@ public class CustomerDao {
             if (con != null) {
                 String sql = "select * from customer where mobile=?";
                 PreparedStatement smt = con.prepareStatement(sql);
-                smt.setInt(1, mobile);
+                smt.setString(1, mobile);
 
                 ResultSet rs = smt.executeQuery();
                 if (rs.next()) {
@@ -271,29 +262,26 @@ public class CustomerDao {
         }
         return status;
     }
-    
-     public boolean update(Customer customer) {
+
+    public boolean update(Customer customer) {
         boolean status = false;
         try {
             ConnectionPool cp = ConnectionPool.getInstance();
             cp.initialize();
             Connection con = cp.getConnection();
             if (con != null) {
-                String sql = "update customer set name=?,gender=?,email=?,mobile=?,password=?,address=?,city=?,state=?,userid=? where id=?";
+                String sql = "update customer set name=?,gender=?,email=?,mobile=?,userid=?,password=? where id=?";
                 PreparedStatement smt = con.prepareStatement(sql);
                 smt.setString(1, customer.getName());
                 smt.setString(2, customer.getGender());
                 smt.setString(3, customer.getEmail());
-                smt.setInt(4, customer.getMobile());
-                smt.setString(5, customer.getPassword());
-                smt.setString(6, customer.getAddress());
-                smt.setString(7, customer.getCity());
-                smt.setString(8, customer.getState());
-                smt.setString(9, customer.getUserid());
-                smt.setInt(10, customer.getId());
-                
+                smt.setString(4, customer.getMobile());
+                smt.setString(5, customer.getUserid());
+                smt.setString(6, customer.getPassword());
+                smt.setInt(7, customer.getId());
+
                 int n = smt.executeUpdate();
-               // System.out.println("n:"+n);
+                // System.out.println("n:"+n);
                 if (n > 0) {
                     //System.out.println("Customer:"+customer);
                     status = true;
@@ -308,8 +296,8 @@ public class CustomerDao {
         }
         return status;
     }
-     
-     public int getRecordCount() {
+
+    public int getRecordCount() {
         int total = 0;
         try {
             ConnectionPool cp = ConnectionPool.getInstance();
@@ -334,6 +322,90 @@ public class CustomerDao {
         }
         return total;
     }
+
+    public String getRole(String userid, String password) {
+        String role = null;
+
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "select role from customer where userid=? and password=?";
+                PreparedStatement smt = con.prepareStatement(sql);
+                smt.setString(1, userid);
+                smt.setString(2, password);
+
+                ResultSet rs = smt.executeQuery();
+                if (rs.next()) {
+                    role = rs.getString("role");
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error :" + e.getMessage());
+        }
+        return role;
+    }
     
+    public Customer getByLoginDetail(String userid, String password, String role) {
+        Customer customer = null;
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "select * from customer where userid=? and password=? and role=?";
+                PreparedStatement smt = con.prepareStatement(sql);
+               smt.setString(1, userid);
+               smt.setString(2,password);
+               smt.setString(3, role);
+                ResultSet rs = smt.executeQuery();
+                if (rs.next()) {
+                    customer = new Customer();
+                    customer.setName(rs.getString("name"));
+                    customer.setGender(rs.getString("gender"));
+                    customer.setEmail(rs.getString("email"));
+                    customer.setMobile(rs.getString("mobile"));
+                    
+                  //  admin.setUserid(rs.getString("userid"));
+                //   admin.setPassword(rs.getString("password"));
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error " + e.getMessage());
+        }
+
+        return customer;
+    }
+    
+    public int isValid(String userid, String password, String role) {
+        int id = -1;
+        ConnectionPool cp = ConnectionPool.getInstance();
+        cp.initialize();
+        Connection con = cp.getConnection();
+        if (con != null) {
+            try {
+                String sql = "select * from customer where userid=? and password=? and role=?";
+                PreparedStatement smt = con.prepareStatement(sql);
+                smt.setString(1, userid);
+                smt.setString(2, password);
+                smt.setString(3, role);
+                ResultSet rs = smt.executeQuery();
+                if (rs.next()) {
+                    id = rs.getInt("id");
+                }
+                smt.close();
+                cp.putConnection(con);
+            } catch (Exception e) {
+                System.out.println("DBError :" + e.getMessage());
+            }
+        }
+
+        return id;
+    }
 
 }

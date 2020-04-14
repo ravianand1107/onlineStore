@@ -20,10 +20,29 @@
                 </div>
                 <div class="col-xl-4 col-lg-5">
                     <div class="user-panel">
+                        <%
+                            if (session.getAttribute("customer") == null) {%>
                         <div class="up-item">
                             <i class="flaticon-profile"></i>
-                            <a href="#">Sign In</a> or <a href="#">Create Account</a>
+                            <a href="login.jsp">Sign In</a> or <a href="register.jsp">Create Account</a>
                         </div>
+                        <%} else {%>
+                        <div class="up-item">
+                            
+                            <ul class="main-menu">
+                                <li><i class="flaticon-profile"></i>
+                                    <a href="#"> Profile</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#"><b>${customer.name}</b></a></li>
+                                        <li><a href="#">Orders</a></li>
+                                        <li><a href="logout.jsp">Logout</a></li>
+                                        
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <%}%>
+
                         <div class="up-item">
                             <div class="shopping-card">
                                 <i class="flaticon-bag"></i>
@@ -31,6 +50,7 @@
                             </div>
                             <a href="cart.jsp">Shopping Cart</a>
                         </div>
+
                     </div>
                 </div>
             </div>

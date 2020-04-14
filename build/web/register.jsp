@@ -3,20 +3,69 @@
     Created on : 31 Mar, 2020, 12:20:39 PM
     Author     : ravi
 --%>
-<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList" %>
+<%@page import="com.beans.Customer, com.daos.CustomerDao, java.sql.*, java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Products</title>
+        <title>Register</title>
         <meta charset="UTF-8">
         <meta name="description" content=" Divisima | eCommerce Template">
         <meta name="keywords" content="divisima, eCommerce, creative, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <jsp:include page="base.jsp"></jsp:include>
+
+            <script>
+                function matchPwd(x, y) {
+                    if (x === y) {
+                        return true;
+                    } else {
+                        alert('Sorry! Password and Confirm Password is not matching.');
+                        return false;
+                    }
+                }
+
+                function checkUserid(x, y) {
+                    ajax1 = new XMLHttpRequest();
+                    ajax1.open("GET", "CustomerController?op=check_userid&userid=" + x, true);
+                    ajax1.send();
+
+                    ajax1.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            y.innerHTML = this.responseText;
+                        }
+                    }
+                }
+
+                function checkMobile(x, y) {
+                    ajax2 = new XMLHttpRequest();
+                    ajax2.open("GET", "CustomerController?op=check_mobile&mobile=" + x, true);
+                    ajax2.send();
+
+                    ajax2.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            y.innerHTML = this.responseText;
+                        }
+                    }
+                }
+
+                function checkEmail(x, y) {
+                    ajax3 = new XMLHttpRequest();
+                    ajax3.open("GET", "CustomerController?op=check_email&email=" + x, true);
+                    ajax3.send();
+
+                    ajax3.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            y.innerHTML = this.responseText;
+                        }
+                    }
+                }
+
+            </script>
         </head>
         <body>
+        <jsp:useBean class="com.beans.Customer" id="customer" scope="session"></jsp:useBean>
             <!-- Page Preloder -->
             <div id="preloder">
                 <div class="loader"></div>
@@ -26,81 +75,75 @@
         <jsp:include page="header.jsp"></jsp:include>
             <!-- Header section end -->
 
-
-
-
             <!-- Category section -->
             
                 <div class="container">
+                    <form method="post"  class="form" onsubmit="return matchPwd(password.value, cpassword.value);">
+                        <table class="table">
+                            <tr>
+                                <th colspan="2"><h2>Register** </h2></th>
+                            </tr>
+                            <tr>
+                                <th>Name </th>
+                                <td><input type="text" name="name" class="form-control" value="${customer.name}"/></td>
+                        </tr>
+                        <tr>
+                            <th>Gender </th>
+                            <td>
+                                <input type="radio" name="gender"  value="male" ${customer.gender eq "male"?"checked":""}/> Male
+                                <br/>
+                                <input type="radio" name="gender"  value="female" ${customer.gender eq "female"?"checked":""}/> Female
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Email </th>
+                            <td><input type="email" name="email" class="form-control" required="required" value="${customer.email}" id="email" onblur="checkEmail(this.value, sp1);" />
+                                <span id ="sp1"> </span></td>
+                        </tr> 
+                        <tr>
+                            <th>Mobile No.</th>
+                            <td><input type="number" name="mobile" class="form-control" required="required" value="${customer.mobile}" maxlength="10" id="mobile" onblur="checkMobile(this.value, sp3);"/>
+                                <span id ="sp3"></span></td>
+                        </tr>
+                        <tr>
+                            <th>User Id </th>
+                            <td><input type="text" name="userid" class="form-control" id="userid" required="required" onblur="checkUserid(this.value, sp2);" value="${customer.userid}"/>
+                                <span id ="sp2"> </span></td>
+                        </tr> 
 
-
-                    <div class="col col-lg-auto">
-                        <div class="row">
-                            
-                            <center><h2>Register</h2></center>
-                            <form action="addpic.jsp" method='post' class="form"  onsubmit="return matchPwd(password.value, cpassword.value);"> 
-                               <center>
-                                <table width="600" class="table">
-                                    <tr>
-                                        <td>Enter Name </td>
-                                        <td><input type="text" name="name" required="required" class="form-control" value="${person.name}"></td>
-                                </tr>
-                                <tr>
-                                    <td>Enter Father Name </td>
-                                    <td><input type="text" name="fname" required="required"  class="form-control" value="${person.fname}"></td>
-                                </tr>   
-                                <tr>
-                                    <td>Enter UserID </td>
-                                    <td><input type="text" name="userid" required="required" class="form-control" id="userid" onblur="checkUserid(this.value, sp1);" value="${person.userid}">
-                                        <span id ="sp1"> </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Enter Password</td>
-                                    <td><input type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" name="password" id="password" required="required" class="form-control" value="${person.password}">
-                                        <br/>
-                                        <b>Password must contains atleast one uppercase,one lowercase , one special char and more than 8 characters</b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Confirm Password</td>
-                                    <td><input type="password" name="cpassword" id="cpassword" required="required" class="form-control" value="${person.password}"></td>
-                                </tr>
-                                <tr>
-                                    <td>Enter Age</td>
-                                    <td><input type="number" name="age"class="form-control" value="${person.age}"></td>
-                                </tr>
-                                <tr>
-                                    <td>Select Gender </td>
-                                    <td>
-                                        <input type="radio" name="gender"  value="Male" ${person.gender eq "Male"?"checked":""}/>Male
-                                        <br/>
-                                        <input type="radio" name="gender"  value="Female" ${person.gender eq "Female"?"checked":""}/> Female
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Select Your Hobbies : </td>
-                                    <td>
-                                        <input type="checkbox" name="hobbies" value="Dancing" ${person.hobbies.contains("Dancing")? "checked":""}>Dancing
-                                        <input type="checkbox" name="hobbies" value="Singing" ${person.hobbies.contains("Singing")? "checked":""}>Singing <br/>
-                                        <input type="checkbox" name="hobbies" value="Cooking" ${person.hobbies.contains("Cooking")? "checked":""}>Cooking
-                                        <input type="checkbox" name="hobbies" value="Drawing" ${person.hobbies.contains("Drawing")? "checked":""}>Drawing <br/>
-
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th> <input type="checkbox" value="accept" name="accept" id="accept" onchange="checkValue(this, submit)"/> Accept Terms and Condition.</th>
-                                    <th><input type="submit" name="submit" id="submit" value="Next Page" class="btn btn-primary" disabled="disabled"> </th>
-                                </tr>
-                            </table>
-                            </center>
-                        </form>
-                        
-                    </div>
-                </div>
-
+                        <tr>
+                            <th>Password </th>
+                            <td><input type="password" name="password" id="password" class="form-control" required="required" value="${customer.password}"/></td>
+                        </tr>
+                        <tr>
+                            <th>Confirm Password</th>
+                            <td><input type="password" name="cpassword" id="cpassword" required="required" class="form-control" value="${customer.password}"></td>
+                        </tr>
+                        <input type="hidden" name="role" value="customer"/>
+                        <tr>
+                            <th colspan="2"><center><button name="submit" type="submit" class="btn btn-primary">Register</button></center></th>
+                        </tr>
+                    </table>
+                </form>
             </div>
+                        
+                        <div class="col-md-12">
+                                <%
+                                    if (request.getParameter("submit") != null) {
+                                %>
+                                <jsp:setProperty name="customer" property="*"></jsp:setProperty>
+
+                                    <form action="CustomerController?op=add" method="post" class="form">
+                                        <table class="table">
+                                            <tr>
+                                                <th colspan="2" ><center><button type="submit" class="btn btn-primary">Click here to insert image</button></center></th>
+                                            </tr>
+                                        </table>
+                                    </form>
+
+                                <% }
+                                %>
+                            </div>
         
         <!-- Category section end -->
 
@@ -123,3 +166,8 @@
 
     </body>
 </html>
+
+
+
+
+
