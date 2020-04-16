@@ -12,7 +12,7 @@
                 <ul class="sub-menu">
                     <%System.out.println("wear id:"+weartype.getId());%>
                     <%for (Category category : cd.getAllCategoryByWearId(weartype.getId())) {%>
-                    <li><a href="#"><%=category.getName()%></a></li>
+                    <li><a href="products.jsp?wear_id=<%=weartype.getId()%>&cat_id=<%=category.getId()%>"><%=category.getName()%></a></li>
                     <%}%>
                 </ul>
             </li>

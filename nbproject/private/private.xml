@@ -3,21 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/register.jsp</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/home.jsp</file>
             <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/controller/AddressController.java</file>
             <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/billingAddress.jsp</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/daos/WeartypeDao.java</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/controller/ProductController.java</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/daos/AddressDao.java</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/beans/Customer.java</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/daos/CustomerDao.java</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/admin/addProduct.jsp</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/controller/CustomerController.java</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/daos/CategoryDao.java</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/beans/Address.java</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/admin/updateProduct.jsp</file>
             <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/admin/allProducts.jsp</file>
+            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/controller/ProductController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -3,6 +3,7 @@
     Created on : 31 Mar, 2020, 12:20:39 PM
     Author     : ravi
 --%>
+<%@page import="com.beans.Customer"%>
 <%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -44,11 +45,13 @@
             <!-- Category section -->
             <section class="category-section spad">
             <%
+                Customer customer = (Customer)session.getAttribute("customer");
+                System.out.println("Customer_name:"+customer.getName());
                 ProductDao pd = new ProductDao();
                 String product_id = request.getParameter("product_id");
                 Product product = pd.getById(Integer.parseInt(product_id));
             %>
-            <form action="cart.jsp?product_id=<%=product.getId()%>" method="post">
+            <form action="CartController?op=add" method="post">
                 <div class="container">
                     <div class="row">
 
@@ -57,6 +60,7 @@
                             <div class="row">
 
                                 <div class="col-lg-6">
+                                    <input type="hidden" name="cid" value="<%=customer.getId()%>"/>
                                     <input type="hidden" name="pid" value="<%=product.getId()%>"/>
                                     <div class="product-pic-zoom">
                                         <img class="product-big-img" src="<%=product.getImage()%>" alt="">

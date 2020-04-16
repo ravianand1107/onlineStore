@@ -52,10 +52,12 @@
                             <%
                                 ProductDao pd = new ProductDao();
                                 String wear_id = request.getParameter("wear_id");
-
-                                if (wear_id == null) {
+                                String cat_id = request.getParameter("cat_id");
+                                System.out.println("cat_id:"+cat_id);
+                                /*if (wear_id == null) {
                                     wear_id = "-1";
-                                }
+                                }*/
+                                if(cat_id==null){
                                 for (Product product : wear_id == null || wear_id.equals("") || wear_id.equals("-1") ? pd.getAllProduct() : pd.getAllProductByWearType(Integer.parseInt(wear_id))) {
                             %>
                             <div class="col-lg-4 col-sm-6">
@@ -75,7 +77,28 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}%>
+                            <%}}else if(cat_id!=null){
+                                for (Product product : pd.getAllProductByWearTypeIdAndCategoryId(Integer.parseInt(wear_id), Integer.parseInt(cat_id))) {
+                            %>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="product-item">
+                                    <div class="pi-pic">
+                                        <div class="tag-sale">ON SALE</div>
+                                        <a href="productDetails.jsp?product_id=<%=product.getId()%>"><img src="<%=product.getImage()%>" alt=""></a>
+                                        <div class="pi-links">
+                                            <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+                                            <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="pi-text">
+                                        <h6><%=product.getPrice()%></h6>
+                                        <p><%=product.getName()%></p>
+                                        <p>Sizes: <%=product.getSize()%></p>
+                                    </div>
+                                </div>
+                            </div>
+                                    <%}}%>
+
 
                             <div class="text-center w-100 pt-3">
                                 <button class="site-btn sb-line sb-dark">LOAD MORE</button>

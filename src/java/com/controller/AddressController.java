@@ -4,7 +4,9 @@ package com.controller;
 import com.beans.Address;
 import com.beans.Customer;
 import com.daos.AddressDao;
+import com.daos.ProductDao;
 import java.io.IOException;
+import java.io.PrintWriter;
 import static java.lang.System.out;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +19,18 @@ public class AddressController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html");
+
+        String op = request.getParameter("op");
+        System.out.println("hello");
+        if (op != null && op.equalsIgnoreCase("delete")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            AddressDao ad = new AddressDao();
+            if (ad.removeById(id)){
+                response.sendRedirect("billingAddress.jsp");
+            }
+        }
         
     }
 

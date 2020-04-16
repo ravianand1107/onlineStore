@@ -63,9 +63,9 @@
                                 <div class="card">
                                     <div class="card-body">
 
-                                        <p><b><%=add.getName()%></b> <button type="button" class="btn-sm" data-toggle="modal" data-target="#ModalLoginForm">
-                                                Edit
-                                            </button><br/>
+                                        <p><b><%=add.getName()%></b> <button type="button"><a href="AddressController?id=<%=add.getId()%>&op=delete">
+                                                Delete
+                                                </a></button><br/>
                                             <%=add.getAddress()%><br/>
                                             <%=add.getCity()%><br/>
                                             <%=add.getState()%>, <%=add.getPincode()%><br/>
@@ -185,6 +185,7 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        
 
 
 

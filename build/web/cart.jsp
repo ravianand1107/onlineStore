@@ -3,7 +3,7 @@
     Created on : 31 Mar, 2020, 12:20:39 PM
     Author     : ravi
 --%>
-<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList, com.beans.Cart, javax.servlet.http.HttpSession"%>
+<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList, com.beans.Cart, javax.servlet.http.HttpSession, com.beans.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
