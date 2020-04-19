@@ -3,7 +3,7 @@
     Created on : 31 Mar, 2020, 12:20:39 PM
     Author     : ravi
 --%>
-<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList" %>
+<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList,com.beans.Customer, com.beans.Address, com.daos.AddressDao" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,35 +26,38 @@
         <jsp:include page="header.jsp"></jsp:include>
         <!-- Header section end -->
 
+        <%
+            Customer customer = (Customer)session.getAttribute("customer");
+            int address_id = Integer.parseInt(request.getParameter("id")) ;
+            AddressDao ad = new AddressDao();
+            Address add = ad.getById(address_id);
+            System.out.println("Customer Name:: "+customer.getName());
+            System.out.println("Address:: "+add.getName());
+        %>
 
-
-        <!-- Page info -->
-	<div class="page-top-info">
-		<div class="container">
-			<h4>Payment PAge</h4>
-			
-		</div>
-	</div>
-	<!-- Page info end -->
+       
 
 
 	<!-- Category section -->
-	
+        <section class="checkout-section spad">
+            <div class="main-content">
 		<div class="container">
 			<div class="row">
                             
-                            <form class="form" action="" method="post"> 
+                            <form class="form" action="OrderController?op=addOrder" method="post"> 
                                 <br/>
+                                <h2><u>Payment Page</u></h2><br/><br/>
                                 <b>Please select the preferred payment method to use this order.</b><br/><br/>
                                 <br/><input type="radio" name="payment" value="cod">Cash On Delivery*<br/>
                                 <br/>
-                                <input type="submit" name="submit" value="Proceed" class="btn btn-primary">
+                                <input type="submit" name="submit" value="Proceed" class="site-btn">
                                 
                             </form>
                             
 			</div>
 		</div>
-	
+        </div>
+        </section>
 	<!-- Category section end -->
 
 

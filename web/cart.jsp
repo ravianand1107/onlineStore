@@ -3,6 +3,7 @@
     Created on : 31 Mar, 2020, 12:20:39 PM
     Author     : ravi
 --%>
+<%@page import="com.daos.CartDao"%>
 <%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList, com.beans.Cart, javax.servlet.http.HttpSession, com.beans.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,52 +31,13 @@
             <!-- Cart section -->
             <section class="cart-section spad">
             <%
-                 ArrayList<Product> productList =  new ArrayList();
-                ProductDao pd = new ProductDao();
-                String product_id = request.getParameter("product_id");
-                Product product = pd.getById(Integer.parseInt(product_id));
-                productList.add(product);
-                int quantity = request.getParameter("qty") != null ? Integer.parseInt(request.getParameter("qty")) : -1;
-                 
-                Product selectedProduct = null;
-                for (Product p : productList) {
-                    if (p.getId() == Integer.parseInt(product_id)) {
-                        selectedProduct = p;
-                    }
-                }
-                
-                Cart mycart = new Cart();
-                
-               if(quantity!=0 && selectedProduct!=null){
-            mycart.setProduct(selectedProduct);
-            mycart.setQuantity(quantity);
-        }
-        
-        ArrayList<Cart> cart;
-        if(session.getAttribute("cart")==null){
-            cart=new ArrayList<Cart>();
-        }
-        else{
-            cart = (ArrayList)session.getAttribute("cart");
-        }
-        
-        boolean exist=false;
-        for(Cart cc: cart){
-            if(selectedProduct!=null)
-            {
-                if(cc.getProduct().getId()==selectedProduct.getId())
-                {
-                    exist=true;
-                    cc.setQuantity(cc.getQuantity() + quantity);
-                }
-            }
-        }
-        
-        if(!exist && selectedProduct!=null)
-            cart.add(mycart);
-        
-        session.setAttribute("cart", cart);
-        
+                ArrayList<Cart> cartList = new ArrayList();
+
+                Customer customer = (Customer) session.getAttribute("customer");
+                CartDao cd = new CartDao();
+                cartList = cd.getAllCartRecordsByCustomerId(customer.getId());
+                int sum = 0;
+
             %>
             <div class="container">
                 <div class="row">
@@ -92,12 +54,14 @@
                                             <th class="total-th">Price</th>
                                         </tr>
                                     </thead>
-                                    <% int sum = 0;
-                            for (Cart c : cart) {
-                                Product p = c.getProduct();
-                                
-                                
-                        %>
+                                    <%  for (Cart c : cartList) {
+                                            int pid = c.getProduct_id();
+                                            ProductDao pd = new ProductDao();
+                                            Product p = pd.getById(pid);
+                                            int quantity = c.getQty();
+
+                                    %>
+
                                     <tbody>
                                         <tr>
                                             <td class="product-col">
@@ -110,13 +74,17 @@
                                             <td class="quy-col">
                                                 <div class="quantity">
                                                     <div class="pro-qty">
-                                                        <input type="text" value="<%=c.getQuantity()%>">
+                                                        <input type="text" value="<%=c.getQty()%>">
+                                                    </div>
+                                                    <div>
+                                                        <button class="btn btn-light"><a href="CartController?op=removeProduct&product_id=<%=p.getId()%>">
+                                                                <i class="flaticon-cancel" aria-hidden="true"></i></a></button>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="size-col"><h4><%=p.getSize()%></h4></td>
-                                            <td class="total-col"><h4>₹ <%= p.getPrice() * c.getQuantity()%></h4></td>
-                                            <%sum= sum+(p.getPrice() * c.getQuantity());%>
+                                            <td class="total-col"><h4>₹ <%= p.getPrice() * c.getQty()%></h4></td>
+                                            <%sum = sum + (p.getPrice() * c.getQty());%>
                                         </tr>                                    
                                     </tbody>
                                     <%}%>
@@ -125,7 +93,7 @@
                             <div class="total-cost">
                                 <h6>Total <span>₹ <%=sum%></span></h6>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="col-lg-4 card-right">

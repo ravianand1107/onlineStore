@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/controller/AddressController.java</file>
+            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/payment.jsp</file>
+            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/controller/CustomerController.java</file>
+            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/controller/OrderController.java</file>
+            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/cart.jsp</file>
             <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/billingAddress.jsp</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/web/admin/allProducts.jsp</file>
-            <file>file:/C:/Users/ravi/Documents/NetBeansProjects/Project/src/java/com/controller/ProductController.java</file>
         </group>
     </open-files>
 </project-private>

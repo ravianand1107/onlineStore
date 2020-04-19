@@ -46,34 +46,9 @@ CREATE TABLE `address` (
 
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
 INSERT INTO `address` (`id`,`customer_id`,`address`,`city`,`state`,`pincode`,`mobile`,`name`) VALUES 
- (2,3,'h no-43, deodharpur, tikari','gaya','bihar',824236,'8210431755','Ravi Anand'),
  (3,3,'Hostel No- 11, Appu Bhawan, MANIT Campusl','Bhopal','Madhya Pradesh',462003,'870696501','Ravi Anand'),
  (4,3,'manit','Bhopal','Madhya Pradesh',462003,'7896541230','axay');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
-
-
---
--- Definition of table `admin`
---
-
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(50) default NULL,
-  `email` varchar(50) default NULL,
-  `mobile` int(10) default NULL,
-  `userid` varchar(20) default NULL,
-  `password` varchar(20) default NULL,
-  `image` text,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `admin`
---
-
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
 
 --
@@ -99,8 +74,8 @@ CREATE TABLE `cart` (
 
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
 INSERT INTO `cart` (`id`,`customer_id`,`product_id`,`qty`) VALUES 
- (1,3,6,5),
- (2,3,6,5);
+ (3,3,4,3),
+ (6,3,2,2);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 
 
@@ -210,6 +185,31 @@ CREATE TABLE `orders` (
 
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+
+
+--
+-- Definition of table `payment`
+--
+
+DROP TABLE IF EXISTS `payment`;
+CREATE TABLE `payment` (
+  `id` int(11) NOT NULL auto_increment,
+  `order_id` int(11) default NULL,
+  `amount` int(11) default NULL,
+  `mode` varchar(30) default NULL,
+  `status` varchar(30) default NULL,
+  `date` date default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payment`
+--
+
+/*!40000 ALTER TABLE `payment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 
 
 --

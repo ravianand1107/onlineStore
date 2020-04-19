@@ -3,7 +3,8 @@
     Created on : 31 Mar, 2020, 12:20:39 PM
     Author     : ravi
 --%>
-<%@page import="com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList, com.beans.Cart, com.beans.Customer, com.daos.CustomerDao, com.beans.Address, com.daos.AddressDao" %>
+<%@page import= "com.daos.CartDao, com.beans.Product, com.daos.ProductDao, java.sql.*, java.util.ArrayList,
+        com.beans.Cart, com.beans.Customer, com.daos.CustomerDao, com.beans.Address, com.daos.AddressDao" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
@@ -21,10 +22,15 @@
         </head>
         <body>
 
-        <%ArrayList<Cart> cart = (ArrayList<Cart>) session.getAttribute("cart");
-            for (Cart cc : cart) {
-                System.out.println("Cart:" + cc.getProduct());
-            }
+
+        <jsp:useBean class="com.beans.Address" id="address" scope="session"></jsp:useBean>
+        <%
+            Customer customer = (Customer) session.getAttribute("customer");
+            AddressDao ad = new AddressDao();
+
+            ArrayList<Cart> cartList = new ArrayList();
+            CartDao cd = new CartDao();
+            cartList = cd.getAllCartRecordsByCustomerId(customer.getId());
         %>
         <!-- Page Preloder -->
         <div id="preloder">
@@ -35,28 +41,21 @@
         <jsp:include page="header.jsp"></jsp:include>
             <!-- Header section end -->
 
-
-
-        <jsp:useBean class="com.beans.Address" id="address" scope="session"></jsp:useBean>
-        <%
-            Customer customer = (Customer) session.getAttribute("customer");
-            AddressDao ad = new AddressDao();
-        %>
-        <!-- Checkout section -->
-        <section class="checkout-section spad">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 order-2 order-lg-1">
-                        <div class="site-btn ">Select Delivery Address 
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn-sm" data-toggle="modal" data-target="#ModalLoginForm">
-                                + ADD ADDRESS
-                            </button></div><br/>
-                        <div class="row">
+            <!-- Checkout section -->
+            <section class="checkout-section spad">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 order-2 order-lg-1">
+                            <div class="site-btn ">Select Delivery Address 
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn-sm" data-toggle="modal" data-target="#ModalLoginForm">
+                                    + ADD ADDRESS
+                                </button></div><br/>
+                            <div class="row">
                             <%for (Address add : ad.getAllAddressesByCustomerId(customer.getId())) {%>
 
                             <div class="col-lg-4 col-sm-6">
@@ -64,19 +63,21 @@
                                     <div class="card-body">
 
                                         <p><b><%=add.getName()%></b> <button type="button"><a href="AddressController?id=<%=add.getId()%>&op=delete">
-                                                Delete
+                                                    Delete
                                                 </a></button><br/>
                                             <%=add.getAddress()%><br/>
                                             <%=add.getCity()%><br/>
                                             <%=add.getState()%>, <%=add.getPincode()%><br/>
                                             <b>Mobile: </b><%=add.getMobile()%></p>
+                                            
                                     </div>
                                     <div class="card-footer">
-                                        <button class="site-btn">Deliver Here</button>
-                                        
+                                        <button class="site-btn"><a href="payment.jsp?id=<%=add.getId()%>">Deliver Here</a></button>
+
                                     </div>
                                 </div>
                             </div>
+                                  
                             <%}%>
                         </div>
 
@@ -87,15 +88,18 @@
                             <ul class="product-list">
                                 <%
                                     int sum = 0;
-                                    for (Cart cc : cart) {
-                                        Product p = cc.getProduct();
+                                    for (Cart c : cartList) {
+                                        int pid = c.getProduct_id();
+                                        ProductDao pd = new ProductDao();
+                                        Product p = pd.getById(pid);
+                                        int quantity = c.getQty();
                                 %>
                                 <li>
                                     <div class="pl-thumb"><img src="<%=p.getImage()%>" alt="" width="50px" height="100px"></div>
                                     <h6><%=p.getName()%></h6>
                                     <p>₹ <%=p.getPrice()%></p>
-                                    <p>Qty: <%=cc.getQuantity()%></p>
-                                    <%sum = sum + (p.getPrice() * cc.getQuantity());%>
+                                    <p>Qty: <%=c.getQty()%></p>
+                                    <%sum = sum + (p.getPrice() * c.getQty());%>
                                 </li>
                                 <%}%>
                             </ul>
@@ -119,7 +123,7 @@
                     </div>
                     <div class="modal-body">
                         <form role="form" method="POST" >
-                            
+
                             <div class="form-group">
                                 <label class="control-label">Receiver's Name</label>
                                 <div>
@@ -147,7 +151,7 @@
                             <div class="form-group">
                                 <label class="control-label">State</label>
                                 <div>
-                                    
+
                                     <input type="text" class="form-control input-lg" name="state" value="${address.state}">
                                 </div>
                             </div>
@@ -163,29 +167,29 @@
                                 </div>
                             </div>
                         </form>
-                                
+
                     </div>
                     <div class="modal-footer text-xs-center">
                         <%
-                                    if (request.getParameter("submit") != null) {
-                                %>
-                                <jsp:setProperty name="address" property="*"></jsp:setProperty>
+                            if (request.getParameter("submit") != null) {
+                        %>
+                        <jsp:setProperty name="address" property="*"></jsp:setProperty>
 
-                                    <form action="AddressController?op=add" method="post" role="form">
-                                        <div class="form-group">
-                                <div>
-                                    <button type="submit" class="btn btn-info btn-block">Save</button>
+                            <form action="AddressController?op=add" method="post" role="form">
+                                <div class="form-group">
+                                    <div>
+                                        <button type="submit" class="btn btn-info btn-block">Save</button>
+                                    </div>
                                 </div>
-                            </div>
-                                    </form>
+                            </form>
 
-                                <% }
-                                %>
+                        <% }
+                        %>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-        
+
 
 
 
