@@ -1,10 +1,10 @@
 SMAP
-blank_jsp.java
+allOrders_jsp.java
 JSP
 *S JSP
 *F
-+ 0 blank.jsp
-admin/blank.jsp
++ 0 allOrders.jsp
+admin/allOrders.jsp
 *L
 1,14:44
 15:58,3

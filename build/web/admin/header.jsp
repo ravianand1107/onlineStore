@@ -88,6 +88,10 @@
                                             <a href="#">
                                                 <i class="zmdi zmdi-notifications"></i>Notifications</a>
                                         </div>
+                                        <div class="account-dropdown__item">
+                                            <a href="logout.jsp">
+                                                <i class="zmdi zmdi-notifications"></i>Logout</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

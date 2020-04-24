@@ -39,7 +39,7 @@
                                 <div class="col col-md-12">
 
                                     <form class="form">
-                                        <table class="table">
+                                        <table class="table table-borderless table-striped table-earning">
                                             <tr>
                                                 <th colspan="2"><center><h2>**All Waertypes** </h2></center></th>
                                             </tr>
@@ -51,13 +51,13 @@
                                         %>
                                         <tr>
                                             <th><%=wear.getName()%> </th>
-                                            <td><button><a href="updateWeartype.jsp?id=<%=wear.getId()%>"><i class="fas fa-pencil btn btn-primary" aria-hidden="true">Update</i></a></button> 
-                                                <button><a href="../WeartypeController?id=<%=wear.getId()%>&op=delete"> <i class="fas fa-trash btn btn-danger" aria-hidden="true">Delete</i> </a></button>
+                                            <td><button><a href="updateWeartype.jsp?id=<%=wear.getId()%>"><i class="btn btn-primary btn-sm" aria-hidden="true">Update</i></a></button> 
+                                                <button><a href="../WeartypeController?id=<%=wear.getId()%>&op=delete"> <i class="btn btn-danger btn-sm" aria-hidden="true">Delete</i> </a></button>
                                             </td>
                                         </tr> 
                                         <%}%>
                                         <tr>
-                                            <th colspan="2"><center><a href="addWeartype.jsp" class="form-control btn btn-primary">Add New Weartype</a></center></th>
+                                            <th colspan="2"><center><a href="addWeartype.jsp" class="form-control btn btn-primary btn-sm">Add New Weartype</a></center></th>
                                         </tr>
                                     </table>
                                 </form>

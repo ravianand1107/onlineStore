@@ -48,6 +48,7 @@
                                 <br/>
                                 <h2><u>Payment Page</u></h2><br/><br/>
                                 <b>Please select the preferred payment method to use this order.</b><br/><br/>
+                                <input type ="hidden" name="address_id" value="<%=address_id%>">
                                 <br/><input type="radio" name="payment" value="cod">Cash On Delivery*<br/>
                                 <br/>
                                 <input type="submit" name="submit" value="Proceed" class="site-btn">

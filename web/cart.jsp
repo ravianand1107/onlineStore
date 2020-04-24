@@ -30,12 +30,14 @@
 
             <!-- Cart section -->
             <section class="cart-section spad">
+            
             <%
                 ArrayList<Cart> cartList = new ArrayList();
 
                 Customer customer = (Customer) session.getAttribute("customer");
                 CartDao cd = new CartDao();
                 cartList = cd.getAllCartRecordsByCustomerId(customer.getId());
+                session.setAttribute("cart", cartList);
                 int sum = 0;
 
             %>

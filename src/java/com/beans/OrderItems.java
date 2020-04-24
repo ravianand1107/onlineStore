@@ -3,7 +3,25 @@ package com.beans;
 
 public class OrderItems {
     private int id, product_id, order_id, quantity, price;
+    private String status, date;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
+    
     public OrderItems() {
     }
 

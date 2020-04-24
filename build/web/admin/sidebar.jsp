@@ -19,13 +19,24 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard
                             </a>
                         </li>
-                        <li>
-                            <a href="allProducts.jsp">
-                                <i class="fas fa-desktop"></i>All Products</a>
-                        </li>
-                        <li>
-                            <a href="addProduct.jsp">
-                                <i class="fas fa-plus"></i>Add Product</a>
+                        
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-th"></i>Products
+                                <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="allProducts.jsp">
+                                        <i class="fas fa-desktop"></i>All Products</a>
+                                </li>
+                                <li>
+                                    <a href="addProduct.jsp">
+                                        <i class="fas fa-plus"></i>Add Product</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
@@ -53,6 +64,38 @@
                                 </li>
                             </ul>
                         </li>
+                        
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-barcode"></i>Orders
+                                <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="allOrders.jsp">
+                                        <i class="fas fa-male"></i>All Orders</a>
+                                </li>
+                                <li>
+                                    <a href="pendingOrders.jsp">
+                                        <i class="far fa-check-square"></i>Pending Orders</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-calendar-alt"></i>Confirmed Orders</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-map-marker-alt"></i>Delivered Orders</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-map-marker-alt"></i>Returned Orders</a>
+                                </li>
+                            </ul>
+                        </li>
+                        
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-copy"></i>Pages

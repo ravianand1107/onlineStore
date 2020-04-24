@@ -34,7 +34,7 @@
                                     <a href="#"> Profile</a>
                                     <ul class="sub-menu">
                                         <li><a href="#"><b>${customer.name}</b></a></li>
-                                        <li><a href="#">Orders</a></li>
+                                        <li><a href="orders.jsp">Orders</a></li>
                                         <li><a href="logout.jsp">Logout</a></li>
                                         
                                     </ul>

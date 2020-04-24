@@ -78,8 +78,8 @@ public class CustomerController extends HttpServlet {
             System.out.println("customer:"+customer.getName());
             
             if(cd.add(customer)){
-                out.println("Now! You are registered");
                 session.removeAttribute("customer");
+                response.sendRedirect("home.jsp");
             }
     }
 

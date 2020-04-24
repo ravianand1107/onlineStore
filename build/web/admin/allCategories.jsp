@@ -51,13 +51,13 @@
                                         %>
                                         <tr>
                                             <th><%=cate.getName()%> </th>
-                                            <td><button><a href="updateCategory.jsp?id=<%=cate.getId()%>"><i class="fas fa-pencil btn btn-primary" aria-hidden="true">Update</i></a></button> 
-                                                <button><a href="../CategoryController?id=<%=cate.getId()%>&op=delete"> <i class="fas fa-trash btn btn-danger" aria-hidden="true">Delete</i> </a></button>
+                                            <td><button><a href="updateCategory.jsp?id=<%=cate.getId()%>"><i class="btn btn-primary btn-sm" aria-hidden="true">Update</i></a></button> 
+                                                <button><a href="../CategoryController?id=<%=cate.getId()%>&op=delete"> <i class="btn btn-danger btn-sm" aria-hidden="true">Delete</i> </a></button>
                                             </td>
                                         </tr> 
                                         <%}%>
                                         <tr>
-                                            <th colspan="2"><center><a href="addCategory.jsp" class="form-control btn btn-primary">Add New Category</a></center></th>
+                                            <th colspan="2"><center><a href="addCategory.jsp" class="form-control btn btn-primary btn-sm">Add New Category</a></center></th>
                                         </tr>
                                     </table>
                                 </form>
