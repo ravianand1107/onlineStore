@@ -82,17 +82,14 @@
                                         <i class="far fa-check-square"></i>Pending Orders</a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="confirmedOrders.jsp">
                                         <i class="fas fa-calendar-alt"></i>Confirmed Orders</a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fas fa-map-marker-alt"></i>Delivered Orders</a>
+                                    <a href="orderDetails.jsp">
+                                        <i class="fas fa-map-marker-alt"></i>Order Details</a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-map-marker-alt"></i>Returned Orders</a>
-                                </li>
+                                
                             </ul>
                         </li>
                         

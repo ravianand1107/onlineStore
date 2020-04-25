@@ -133,7 +133,7 @@ CREATE TABLE `customer` (
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 INSERT INTO `customer` (`id`,`name`,`gender`,`email`,`mobile`,`userid`,`password`,`role`) VALUES 
  (3,'Ravi Anand','male','r.anand1107@gmail.com','7870696501','ravi123','ravi123','customer'),
- (4,'admin','male','r.anand110896@gmail.com','8210431755','admin123','admin123','admin'),
+ (4,'admin','male','r.anand110896@gmail.com','8210431755','admin','admin','admin'),
  (6,'Axay Patidar','male','akshaykpatidar@gmail.com','7896541230','axay','axay','customer');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
@@ -164,10 +164,10 @@ CREATE TABLE `order_items` (
 
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
 INSERT INTO `order_items` (`id`,`product_id`,`order_id`,`quantity`,`price`,`status`,`date`) VALUES 
- (3,2,1,2,699,'pending','2020-04-23'),
- (4,3,4,3,2699,'pending','2020-04-23'),
- (5,1,4,2,999,'pending','2020-04-23'),
- (6,4,5,2,1499,'pending','2020-04-23'),
+ (3,2,1,2,699,'delivered','2020-04-25'),
+ (4,3,4,3,2699,'delivered','2020-04-25'),
+ (5,1,4,2,999,'confirmed','2020-04-23'),
+ (6,4,5,2,1499,'confirmed','2020-04-25'),
  (7,9,5,1,1499,'pending','2020-04-23');
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 

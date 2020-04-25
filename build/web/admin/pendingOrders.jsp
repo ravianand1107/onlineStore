@@ -32,10 +32,10 @@
                     <!-- END HEADER DESKTOP-->
 
                     <!-- Main Section -->
-                    
-                    
+
+
                 <%
-                    
+
                     ArrayList<Orders> orderList = new ArrayList();
                     ArrayList<OrderItems> orderItemsList = new ArrayList();
                     Orders orders = new Orders();
@@ -47,49 +47,52 @@
                 <div class="main-content">
 
                     <div class="row">
-                        
+
                         <div class="col-lg-12">
                             <center><h3>Pending Orders</h3></center>
                             <div class="table-responsive table--no-card m-b-30">
-                                
-                                <table class="table table-borderless table-striped table-earning">
-                                    <thead>
-                                        <tr>
-                                            <th>date</th>
-                                            <th>order ID</th>
-                                            <th>name</th>
-                                            <th>Status</th>
-                                            <th class="text-right">price</th>
-                                            <th class="text-right">quantity</th>
-                                            <th class="text-right">total</th>
-                                            <th class="text-right">action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%  for (Orders or : orderList) {
-                                                String status = "pending";
-                                                orderItemsList = od.getAllOrdersItemsesByOrderIdAndStatus(or.getId(),status);
-                                                for (OrderItems ol : orderItemsList) {
-                                                                int pid = ol.getProduct_id();
-                                                                ProductDao pd = new ProductDao();
-                                                                Product p = pd.getById(pid);
-                                                                int quantity = ol.getQuantity();
-                                                        %>
-                                        
-                                        <tr>
-                                            <td><%=ol.getDate()%></td>
-                                            <td><%=or.getId()%></td>
-                                            <td><%=p.getName()%></td>
-                                            <td><%=ol.getStatus()%>
-                                            <td class="text-right"><%=p.getPrice()%></td>
-                                            <td class="text-right"><%=quantity%></td>
-                                            <td class="text-right"><%=p.getPrice()*quantity%></td>
-                                            <td><button class="btn"><a href="../OrderController?id=<%=ol.getId()%>&op=changeStatus">Confirm</a></button></td>
-                                        </tr>
-                                        <%}}%>
+                                <form method="post" action="../OrderController?op=confirmOrder">
+                                    <table class="table table-borderless table-striped table-earning">
+                                        <thead>
+                                            <tr>
+                                                <th>date</th>
+                                                <th>order ID</th>
+                                                <th>name</th>
+                                                <th>Status</th>
+                                                <th class="text-right">price</th>
+                                                <th class="text-right">quantity</th>
+                                                <th class="text-right">total</th>
+                                                <th class="text-right">action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%  for (Orders or : orderList) {
+                                                    String status = "pending";
+                                                    orderItemsList = od.getAllOrdersItemsesByOrderIdAndStatus(or.getId(), status);
+                                                    for (OrderItems ol : orderItemsList) {
+                                                        int pid = ol.getProduct_id();
+                                                        ProductDao pd = new ProductDao();
+                                                        Product p = pd.getById(pid);
+                                                        int quantity = ol.getQuantity();
+                                            %>
 
-                                    </tbody>
-                                </table>
+                                            <tr>
+                                                <td><%=ol.getDate()%></td>
+                                                <td><%=or.getId()%></td>
+                                                <td><%=p.getName()%></td>
+                                                <td><%=ol.getStatus()%>
+                                                <td class="text-right"><%=p.getPrice()%></td>
+                                                <td class="text-right"><%=quantity%></td>
+                                                <td class="text-right"><%=p.getPrice() * quantity%></td>
+                                                <input type="hidden" name="orderId" value="<%=ol.getId()%>">
+                                                <td><input type="submit" class="btn" value="Confirm"/></td>
+                                            </tr>
+                                            <%}
+                                            }%>
+
+                                        </tbody>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>

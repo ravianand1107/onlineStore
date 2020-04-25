@@ -256,5 +256,67 @@ public class OrderDao {
             System.out.println("Error: " + e.getMessage());
         }
         return orderItems;
-    }    
+    }
+    
+    public ArrayList<OrderItems> getAllOrdersItemsByStatus(String status) {
+        ArrayList<OrderItems> orderItems = new ArrayList();
+
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "select * from order_items where status=?";
+                PreparedStatement smt = con.prepareStatement(sql);
+                
+                smt.setString(1, status);
+                ResultSet rs = smt.executeQuery();
+                while (rs.next()) {
+                    OrderItems orderItem = new OrderItems();
+                    orderItem.setId(rs.getInt("id"));
+                    orderItem.setProduct_id(rs.getInt("product_id"));
+                    orderItem.setOrder_id(rs.getInt("order_id"));
+                    orderItem.setQuantity(rs.getInt("quantity"));
+                    orderItem.setPrice(rs.getInt("price"));
+                    orderItem.setStatus(rs.getString("status"));
+                    orderItem.setDate(rs.getString("date"));
+                    
+                    orderItems.add(orderItem);
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return orderItems;
+    }
+    
+    public boolean updateOrderStatus(String status, int orderItem_id) {
+        boolean sts = false;
+        ConnectionPool cp = ConnectionPool.getInstance();
+        cp.initialize();
+        Connection con = cp.getConnection();
+
+        if (con != null) {
+            try {
+                String sql = "update order_items set status=?, date=? where id = ?";
+                PreparedStatement smt = con.prepareStatement(sql);
+                smt.setString(1, status);
+                LocalDate date = LocalDate.now();
+                String order_date = date.toString();
+                smt.setString(2, order_date);
+                smt.setInt(3, orderItem_id);
+                
+                smt.executeUpdate();
+                cp.putConnection(con);
+                sts = true;
+                smt.close();
+
+            } catch (Exception e) {
+                System.out.println("Error " + e.getMessage());
+            }
+        }
+        return sts;
+    }
 }

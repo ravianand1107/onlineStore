@@ -12,7 +12,7 @@
         <meta name="keywords" content="au theme template">
 
         <!-- Title Page-->
-        <title>Pending Orders</title>
+        <title>Confirmed Orders</title>
 
         <jsp:include page="base.jsp"></jsp:include>
 
@@ -49,9 +49,9 @@
                     <div class="row">
 
                         <div class="col-lg-12">
-                            <center><h3>Pending Orders</h3></center>
+                            <center><h3>Confirmed Orders</h3></center>
                             <div class="table-responsive table--no-card m-b-30">
-                                <form method="post" action="../OrderController?op=confirmOrder">
+                                <form method="post" action="../OrderController?op=deliverOrder">
                                     <table class="table table-borderless table-striped table-earning">
                                         <thead>
                                             <tr>
@@ -67,7 +67,7 @@
                                         </thead>
                                         <tbody>
                                             <%  for (Orders or : orderList) {
-                                                    String status = "pending";
+                                                    String status = "confirmed";
                                                     orderItemsList = od.getAllOrdersItemsesByOrderIdAndStatus(or.getId(), status);
                                                     for (OrderItems ol : orderItemsList) {
                                                         int pid = ol.getProduct_id();
@@ -85,7 +85,7 @@
                                                 <td class="text-right"><%=quantity%></td>
                                                 <td class="text-right"><%=p.getPrice() * quantity%></td>
                                                 <input type="hidden" name="orderId" value="<%=ol.getId()%>">
-                                                <td><input type="submit" class="btn" value="Confirm"/></td>
+                                                <td><input type="submit" class="btn" value="Delivered"/></td>
                                             </tr>
                                             <%}
                                             }%>

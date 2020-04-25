@@ -29,12 +29,16 @@ public class OrderController extends HttpServlet {
             throws ServletException, IOException {
         String op = request.getParameter("op");
         String mode = request.getParameter("payment");
-        int address_id = Integer.parseInt(request.getParameter("address_id"));
-        System.out.println("AddressId::"+address_id);
+        
+        int orderItem_id = Integer.parseInt(request.getParameter("orderId"));
+        
+        
         HttpSession session = request.getSession();
         System.out.println("op:" + op);
+        
         if (op.equalsIgnoreCase("addOrder")) {
             Customer customer = (Customer) session.getAttribute("customer");
+            int address_id = Integer.parseInt(request.getParameter("address_id"));
             //    Product product = (Product) session.getAttribute("product");
             ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("cart");
             System.out.println("cid:" + customer.getId());
@@ -62,6 +66,24 @@ public class OrderController extends HttpServlet {
                 }
             }
             response.sendRedirect("home.jsp");
+        }
+        
+        if(op.equalsIgnoreCase("confirmOrder")){
+            System.out.println("Welcome");
+            OrderDao od = new OrderDao();
+            String status = "confirmed";
+            if(od.updateOrderStatus(status, orderItem_id)){
+                response.sendRedirect("admin/pendingOrders.jsp");
+            }
+        }
+        
+        if(op.equalsIgnoreCase("deliverOrder")){
+            System.out.println("Welcome");
+            OrderDao od = new OrderDao();
+            String status = "delivered";
+            if(od.updateOrderStatus(status, orderItem_id)){
+                response.sendRedirect("admin/confirmedOrders.jsp");
+            }
         }
     }
 
