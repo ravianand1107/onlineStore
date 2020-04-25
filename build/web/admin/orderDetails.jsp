@@ -48,7 +48,7 @@
                 %>
                 <!-- Main Section -->
                 <div class="main-content">
-
+                    <form id="form1">
                     <div class="row">
                         <div class="col-lg-12">
                             <!-- USER DATA-->
@@ -58,7 +58,8 @@
                                 <div class="filters m-b-45">
                                     <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
                                         <select onchange="submitForm();" name="filter" id="filter" class="js-select2">
-                                            <option selected="selected">All Orders</option>
+                                            <option value="-1" selected="selected">Select Status</option>
+                                            <option value="">All Orders</option>
                                             <option value="pending">Pending Orders</option>
                                             <option value="confirmed">Confirmed Orders</option>
                                             <option value="delivered">Delivered Orders</option>
@@ -67,14 +68,14 @@
                                         </select>
                                         <div class="dropDownSelect2"></div>
                                     </div>
-                                    <div class="rs-select2--dark rs-select2--sm rs-select2--border">
+                                   <%-- <div class="rs-select2--dark rs-select2--sm rs-select2--border">
                                         <select class="js-select2 au-select-dark" name="time">
                                             <option selected="selected">All Time</option>
                                             <option value="">By Month</option>
                                             <option value="">By Day</option>
                                         </select>
                                         <div class="dropDownSelect2"></div>
-                                    </div>
+                                    </div> --%>
                                 </div>
                                 <div class="table-responsive table--no-card m-b-30">
                                     <table class="table">
@@ -148,6 +149,7 @@
                             <!-- END USER DATA-->
                         </div>
                     </div>
+                    </form>
                 </div>
 
 
