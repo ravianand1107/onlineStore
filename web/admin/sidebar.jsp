@@ -54,14 +54,6 @@
                                     <a href="allCategories.jsp">
                                         <i class="far fa-check-square"></i>Category</a>
                                 </li>
-                                <li>
-                                    <a href="calendar.html">
-                                        <i class="fas fa-calendar-alt"></i>Calendar</a>
-                                </li>
-                                <li>
-                                    <a href="map.html">
-                                        <i class="fas fa-map-marker-alt"></i>Maps</a>
-                                </li>
                             </ul>
                         </li>
                         
@@ -88,6 +80,26 @@
                                 <li>
                                     <a href="orderDetails.jsp">
                                         <i class="fas fa-map-marker-alt"></i>Order Details</a>
+                                </li>
+                                <li>
+                                    <a href="orderDetails2.jsp">
+                                        <i class="fas fa-map-marker-alt"></i>Order Details 2</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-barcode"></i>Customer
+                                <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="customer.jsp">
+                                        <i class="fas fa-male"></i>All Customers</a>
                                 </li>
                                 
                             </ul>

@@ -26,7 +26,23 @@
         </head>
 
         <body class="animsition">
-
+ <!-- CODE FOR UPDATION OF STATUS -->
+       <%
+            if(request.getParameter("submit")!=null){
+                
+                OrderDao od2 = new OrderDao();
+                String orditemids[] = request.getParameterValues("orditemid");
+                for (String s : orditemids){
+                   String status =request.getParameter(s);
+                   //out.println("<script>alert('" + s + ","+ status +"');</script>");
+                   od2.updateOrderStatus(status, Integer.parseInt(s)); 
+                }
+               
+             }
+            %>
+ 
+ <!--  ============================= -->
+ 
 
             <div class="page-wrapper">
                 <!-- MENU SIDEBAR-->
@@ -65,6 +81,7 @@
                                                 <option value="delivered">Delivered Orders</option>
                                                 <option value="cancelled">Cancelled Orders</option>
                                                 <option value="returned">Returned Orders</option>
+                                                 
                                             </select>
                                             <div class="dropDownSelect2"></div>
                                         </div>
@@ -78,7 +95,9 @@
                                          </div> --%>
                                     </div>
                                     <div class="table-responsive table--no-card m-b-30">
+                                        <form method="post">
                                         <table class="table">
+                                            
                                             <thead>
                                                 <tr>
                                                     <td>
@@ -101,7 +120,7 @@
                                                 <% String op = request.getParameter("filter");
                                                     System.out.println("op:" + op);
                                                     if (op == null || op.equals("") || op.equals("-1")) {
-                                                        orderList = od.getAllOrdersInDesc();
+                                                        orderList = od.getAllOrders();
 
                                                         for (Orders or : orderList) {
                                                             orderItemsList = od.getAllOrdersItemsesByOrderId(or.getId());
@@ -114,7 +133,7 @@
                                                 <tr>
                                                     <td>
                                                         <label class="au-checkbox">
-                                                            <input type="checkbox">
+                                                            <input type="checkbox" value="<%=ol.getId()%>" name="orditemid">
                                                             <span class="au-checkmark"></span>
                                                         </label>
                                                     </td> 
@@ -126,10 +145,12 @@
                                                     <td class="text-right"><%=quantity%></td>
                                                     <td class="text-right"><%=p.getPrice() * quantity%></td>
                                                     <td>
-                                                        <select class="js-select2" name="property">
-                                                            <option selected="selected"><%=ol.getStatus()%></option>
-                                                            <option value="">Post</option>
-                                                            <option value="">Watch</option>
+                                                         <select class="js-select2" name="<%=ol.getId()%>">
+                                                           
+                                                            <option value="Pending" <% if(ol.getStatus().equalsIgnoreCase("Pending")) out.println(" selected"); %>>Pending</option>
+                                                            <option value="Confirmed" <% if(ol.getStatus().equalsIgnoreCase("Confirmed")) out.println(" selected"); %>>Confirmed</option>
+                                                             <option value="Cancelled" <% if(ol.getStatus().equalsIgnoreCase("Cancelled")) out.println(" selected"); %>>Cancelled</option>
+                                                             <option value="Delivered" <% if(ol.getStatus().equalsIgnoreCase("Delivered")) out.println(" selected"); %>>Delivered</option>
                                                         </select>
                                                         <div class="dropDownSelect2"></div>
                                                     </td>
@@ -138,7 +159,7 @@
                                                     }
                                                 } else if (op.equals("pending") || op.equals("delivered") || op.equals("confirmed")) {
                                                     System.out.println("====");
-                                                    orderList = od.getAllOrdersInDesc();
+                                                    orderList = od.getAllOrders();
 
                                                     for (Orders or : orderList) {
                                                         orderItemsList = od.getAllOrdersItemsesByOrderIdAndStatus(or.getId(), op);
@@ -164,9 +185,11 @@
                                                     <td class="text-right"><%=p.getPrice() * quantity%></td>
                                                     <td>
                                                         <select class="js-select2" name="property">
-                                                            <option selected="selected"><%=ol.getStatus()%></option>
-                                                            <option value="">Post</option>
-                                                            <option value="">Watch</option>
+                                                           
+                                                            <option value="Pending" <% if(ol.getStatus().equalsIgnoreCase("Pending")) out.println(" selected"); %>>Pending</option>
+                                                            <option value="Confirmed" <% if(ol.getStatus().equalsIgnoreCase("Confirmed")) out.println(" selected"); %>>Confirmed</option>
+                                                             <option value="Cancelled" <% if(ol.getStatus().equalsIgnoreCase("Cancelled")) out.println(" selected"); %>>Cancelled</option>
+                                                             <option value="Delivered" <% if(ol.getStatus().equalsIgnoreCase("Delivered")) out.println(" selected"); %>>Delivered</option>
                                                         </select>
                                                         <div class="dropDownSelect2"></div>
                                                     </td>
@@ -175,9 +198,16 @@
                                                        }
                                                    }%>
                                             </tbody>
+                                            
                                         </table>
+                                            <center>
+                                                <input type="submit" name="submit" value="Proceed Update" class="btn btn-primary"/>
+                                            </center>
+                                            </form>
                                     </div>
-                                   
+                                    <div class="user-data__footer">
+                                        <button class="au-btn au-btn-load">load more</button>
+                                    </div>
                                 </div>
                                 <!-- END USER DATA-->
                             </div>
@@ -228,5 +258,8 @@
 
     </body>
 
+    
+  
+    
 </html>
 <!-- end document-->

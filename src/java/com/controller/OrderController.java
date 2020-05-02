@@ -30,12 +30,13 @@ public class OrderController extends HttpServlet {
         String op = request.getParameter("op");
         String mode = request.getParameter("payment");
         
-        int orderItem_id = Integer.parseInt(request.getParameter("orderId"));
+        
         
         
         HttpSession session = request.getSession();
         System.out.println("op:" + op);
         
+        //adding order and payment by customer
         if (op.equalsIgnoreCase("addOrder")) {
             Customer customer = (Customer) session.getAttribute("customer");
             int address_id = Integer.parseInt(request.getParameter("address_id"));
@@ -68,8 +69,11 @@ public class OrderController extends HttpServlet {
             response.sendRedirect("home.jsp");
         }
         
+        
+        //from admin section confirming order
         if(op.equalsIgnoreCase("confirmOrder")){
             System.out.println("Welcome");
+            int orderItem_id = Integer.parseInt(request.getParameter("orderId"));
             OrderDao od = new OrderDao();
             String status = "confirmed";
             if(od.updateOrderStatus(status, orderItem_id)){
@@ -77,8 +81,10 @@ public class OrderController extends HttpServlet {
             }
         }
         
+        //changing status to delivered by Admin
         if(op.equalsIgnoreCase("deliverOrder")){
             System.out.println("Welcome");
+            int orderItem_id = Integer.parseInt(request.getParameter("orderId"));
             OrderDao od = new OrderDao();
             String status = "delivered";
             if(od.updateOrderStatus(status, orderItem_id)){

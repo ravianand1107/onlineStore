@@ -161,6 +161,36 @@ public class OrderDao {
         return orders;
     }
     
+    public ArrayList<Orders> getAllOrdersInDescByCustomerId(int customer_id) {
+        ArrayList<Orders> orders = new ArrayList();
+
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "select * from orders where customer_id=? order by id desc";
+                PreparedStatement smt = con.prepareStatement(sql);
+                smt.setInt(1, customer_id);
+                ResultSet rs = smt.executeQuery();
+                while (rs.next()) {
+                    Orders order = new Orders();
+                    order.setId(rs.getInt("id"));
+                    order.setCustomer_id(rs.getInt("customer_id"));
+                    order.setDate(rs.getString("date"));
+                    order.setAddress_id(rs.getInt("address_id"));
+                    
+                    orders.add(order);
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return orders;
+    }
+    
     public ArrayList<OrderItems> getAllOrdersItemsesByOrderId(int order_id) {
         ArrayList<OrderItems> orderItems = new ArrayList();
 
@@ -203,6 +233,36 @@ public class OrderDao {
             Connection con = cp.getConnection();
             if (con != null) {
                 String sql = "select * from orders";
+                PreparedStatement smt = con.prepareStatement(sql);
+                
+                ResultSet rs = smt.executeQuery();
+                while (rs.next()) {
+                    Orders order = new Orders();
+                    order.setId(rs.getInt("id"));
+                    order.setCustomer_id(rs.getInt("customer_id"));
+                    order.setDate(rs.getString("date"));
+                    order.setAddress_id(rs.getInt("address_id"));
+                    
+                    orders.add(order);
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return orders;
+    }
+    
+    public ArrayList<Orders> getAllOrdersInDesc() {
+        ArrayList<Orders> orders = new ArrayList();
+
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "select * from orders order by id desc";
                 PreparedStatement smt = con.prepareStatement(sql);
                 
                 ResultSet rs = smt.executeQuery();

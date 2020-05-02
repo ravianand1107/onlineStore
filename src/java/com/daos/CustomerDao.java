@@ -152,6 +152,38 @@ public class CustomerDao {
         }
         return customers;
     }
+    
+    public ArrayList<Customer> getAllRecordsByCustomeRole() {
+        ArrayList<Customer> customers = new ArrayList();
+
+        try {
+            ConnectionPool cp = ConnectionPool.getInstance();
+            cp.initialize();
+            Connection con = cp.getConnection();
+            if (con != null) {
+                String sql = "select * from customer where role='customer'";
+                PreparedStatement smt = con.prepareStatement(sql);
+                ResultSet rs = smt.executeQuery();
+                while (rs.next()) {
+                    Customer customer = new Customer();
+                    customer.setId(rs.getInt("id"));
+                    customer.setName(rs.getString("name"));
+                    customer.setGender(rs.getString("gender"));
+                    customer.setEmail(rs.getString("email"));
+                    customer.setMobile(rs.getString("mobile"));
+                    customer.setUserid(rs.getString("userid"));
+                    customer.setPassword(rs.getString("password"));
+                    customer.setRole(rs.getString("role"));
+                    customers.add(customer);
+                }
+                cp.putConnection(con);
+                smt.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return customers;
+    }
 
     public ArrayList<Customer> getRowsByLimit(int start, int end) {
         ArrayList<Customer> customers = new ArrayList();
@@ -407,5 +439,7 @@ public class CustomerDao {
 
         return id;
     }
+    
+    
 
 }

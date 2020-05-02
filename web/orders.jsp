@@ -35,7 +35,7 @@
                 Customer customer = (Customer) session.getAttribute("customer");
                 Orders orders = new Orders();
                 OrderDao od = new OrderDao();
-                orderList = od.getAllOrdersByCustomerId(customer.getId());
+                orderList = od.getAllOrdersInDescByCustomerId(customer.getId());
                 
 
 

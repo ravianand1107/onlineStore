@@ -101,7 +101,7 @@
                                                 <% String op = request.getParameter("filter");
                                                     System.out.println("op:" + op);
                                                     if (op == null || op.equals("") || op.equals("-1")) {
-                                                        orderList = od.getAllOrders();
+                                                        orderList = od.getAllOrdersInDesc();
 
                                                         for (Orders or : orderList) {
                                                             orderItemsList = od.getAllOrdersItemsesByOrderId(or.getId());
@@ -138,7 +138,7 @@
                                                     }
                                                 } else if (op.equals("pending") || op.equals("delivered") || op.equals("confirmed")) {
                                                     System.out.println("====");
-                                                    orderList = od.getAllOrders();
+                                                    orderList = od.getAllOrdersInDesc();
 
                                                     for (Orders or : orderList) {
                                                         orderItemsList = od.getAllOrdersItemsesByOrderIdAndStatus(or.getId(), op);
@@ -177,9 +177,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="user-data__footer">
-                                        <button class="au-btn au-btn-load">load more</button>
-                                    </div>
+                                   
                                 </div>
                                 <!-- END USER DATA-->
                             </div>

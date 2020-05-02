@@ -1,4 +1,3 @@
-
 package com.controller;
 
 import java.io.IOException;
@@ -9,17 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.beans.Customer;
 import com.daos.CustomerDao;
+import com.beans.Queries;
+import com.daos.QueryDao;
 import javax.servlet.http.HttpSession;
+
 public class CustomerController extends HttpServlet {
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
         response.setContentType("text/html");
         String op = request.getParameter("op");
-        
+
         if (op != null && op.equalsIgnoreCase("check_userid")) {
             String userid = request.getParameter("userid");
             CustomerDao cd = new CustomerDao();
@@ -33,7 +34,7 @@ public class CustomerController extends HttpServlet {
                 out.println("<font color='blue' size='4'>Congratulations! This Userid is available!!!</font>");
             }
         }
-        
+
         if (op != null && op.equalsIgnoreCase("check_email")) {
             String email = request.getParameter("email");
             CustomerDao cd = new CustomerDao();
@@ -47,7 +48,7 @@ public class CustomerController extends HttpServlet {
                 out.println("<font color='blue' size='4'>Congratulations! This Email is not registered!!!</font>");
             }
         }
-        
+
         if (op != null && op.equalsIgnoreCase("check_mobile")) {
             String mobile = request.getParameter("mobile");
             CustomerDao cd = new CustomerDao();
@@ -63,7 +64,6 @@ public class CustomerController extends HttpServlet {
         }
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -75,14 +75,15 @@ public class CustomerController extends HttpServlet {
             HttpSession session = request.getSession();
             Customer customer = (Customer) session.getAttribute("customer");
             CustomerDao cd = new CustomerDao();
-            System.out.println("customer:"+customer.getName());
-            
-            if(cd.add(customer)){
+            System.out.println("customer:" + customer.getName());
+
+            if (cd.add(customer)) {
                 session.removeAttribute("customer");
                 response.sendRedirect("home.jsp");
             }
+        }
+        
+        
+
     }
-
-
-}
 }

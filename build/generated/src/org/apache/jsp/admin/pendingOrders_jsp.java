@@ -89,15 +89,16 @@ public final class pendingOrders_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("                    <!-- END HEADER DESKTOP-->\n");
       out.write("\n");
       out.write("                    <!-- Main Section -->\n");
-      out.write("                    \n");
-      out.write("                    \n");
+      out.write("\n");
+      out.write("\n");
       out.write("                ");
+
 
                     ArrayList<Orders> orderList = new ArrayList();
                     ArrayList<OrderItems> orderItemsList = new ArrayList();
                     Orders orders = new Orders();
                     OrderDao od = new OrderDao();
-                    orderList = od.getAllOrdersByStatus("pending");
+                    orderList = od.getAllOrders();
 
 
                 
@@ -105,64 +106,72 @@ public final class pendingOrders_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("                <div class=\"main-content\">\n");
       out.write("\n");
       out.write("                    <div class=\"row\">\n");
-      out.write("                        \n");
-      out.write("                        <div class=\"col-lg-12\">\n");
-      out.write("                            <h3>All Orders</h3>\n");
-      out.write("                            <div class=\"table-responsive table--no-card m-b-30\">\n");
-      out.write("                                \n");
-      out.write("                                <table class=\"table table-borderless table-striped table-earning\">\n");
-      out.write("                                    <thead>\n");
-      out.write("                                        <tr>\n");
-      out.write("                                            <th>date</th>\n");
-      out.write("                                            <th>order ID</th>\n");
-      out.write("                                            <th>name</th>\n");
-      out.write("                                            <th>Status</th>\n");
-      out.write("                                            <th class=\"text-right\">price</th>\n");
-      out.write("                                            <th class=\"text-right\">quantity</th>\n");
-      out.write("                                            <th class=\"text-right\">total</th>\n");
-      out.write("                                        </tr>\n");
-      out.write("                                    </thead>\n");
-      out.write("                                    <tbody>\n");
-      out.write("                                        ");
-  for (Orders or : orderList) {
-                                                orderItemsList = od.getAllOrdersItemsesByOrderId(or.getId());
-                                                for (OrderItems ol : orderItemsList) {
-                                                                int pid = ol.getProduct_id();
-                                                                ProductDao pd = new ProductDao();
-                                                                Product p = pd.getById(pid);
-                                                                int quantity = ol.getQuantity();
-                                                        
       out.write("\n");
-      out.write("                                        \n");
-      out.write("                                        <tr>\n");
-      out.write("                                            <td>");
+      out.write("                        <div class=\"col-lg-12\">\n");
+      out.write("                            <center><h3>Pending Orders</h3></center>\n");
+      out.write("                            <div class=\"table-responsive table--no-card m-b-30\">\n");
+      out.write("                                <form method=\"post\" action=\"../OrderController?op=confirmOrder\">\n");
+      out.write("                                    <table class=\"table table-borderless table-striped table-earning\">\n");
+      out.write("                                        <thead>\n");
+      out.write("                                            <tr>\n");
+      out.write("                                                <th>date</th>\n");
+      out.write("                                                <th>order ID</th>\n");
+      out.write("                                                <th>name</th>\n");
+      out.write("                                                <th>Status</th>\n");
+      out.write("                                                <th class=\"text-right\">price</th>\n");
+      out.write("                                                <th class=\"text-right\">quantity</th>\n");
+      out.write("                                                <th class=\"text-right\">total</th>\n");
+      out.write("                                                <th class=\"text-right\">action</th>\n");
+      out.write("                                            </tr>\n");
+      out.write("                                        </thead>\n");
+      out.write("                                        <tbody>\n");
+      out.write("                                            ");
+  for (Orders or : orderList) {
+                                                    String status = "pending";
+                                                    orderItemsList = od.getAllOrdersItemsesByOrderIdAndStatus(or.getId(), status);
+                                                    for (OrderItems ol : orderItemsList) {
+                                                        int pid = ol.getProduct_id();
+                                                        ProductDao pd = new ProductDao();
+                                                        Product p = pd.getById(pid);
+                                                        int quantity = ol.getQuantity();
+                                            
+      out.write("\n");
+      out.write("\n");
+      out.write("                                            <tr>\n");
+      out.write("                                                <td>");
       out.print(ol.getDate());
       out.write("</td>\n");
-      out.write("                                            <td>");
+      out.write("                                                <td>");
       out.print(or.getId());
       out.write("</td>\n");
-      out.write("                                            <td>");
+      out.write("                                                <td>");
       out.print(p.getName());
       out.write("</td>\n");
-      out.write("                                            <td>");
+      out.write("                                                <td>");
       out.print(ol.getStatus());
       out.write("\n");
-      out.write("                                            <td class=\"text-right\">");
+      out.write("                                                <td class=\"text-right\">");
       out.print(p.getPrice());
       out.write("</td>\n");
-      out.write("                                            <td class=\"text-right\">");
+      out.write("                                                <td class=\"text-right\">");
       out.print(quantity);
       out.write("</td>\n");
-      out.write("                                            <td class=\"text-right\">");
-      out.print(p.getPrice()*quantity);
+      out.write("                                                <td class=\"text-right\">");
+      out.print(p.getPrice() * quantity);
       out.write("</td>\n");
-      out.write("                                        </tr>\n");
-      out.write("                                        ");
-}}
+      out.write("                                                <input type=\"hidden\" name=\"orderId\" value=\"");
+      out.print(ol.getId());
+      out.write("\">\n");
+      out.write("                                                <td><input type=\"submit\" class=\"btn\" value=\"Confirm\"/></td>\n");
+      out.write("                                            </tr>\n");
+      out.write("                                            ");
+}
+                                            }
       out.write("\n");
       out.write("\n");
-      out.write("                                    </tbody>\n");
-      out.write("                                </table>\n");
+      out.write("                                        </tbody>\n");
+      out.write("                                    </table>\n");
+      out.write("                                </form>\n");
       out.write("                            </div>\n");
       out.write("                        </div>\n");
       out.write("                    </div>\n");
